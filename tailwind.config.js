@@ -11,7 +11,8 @@ module.exports = {
         clrLightOrange: '#F9E0AE',
         clrBlack: '#000000',
         clrWhite: '#FFFFFF',
-        clrGrey: '#000000D9'
+        clrGrey: '#000000D9',
+        clrLightGrey: '#000000b5'
       },
       fontFamily: {
         sans: ['SVN-Poppins', 'SVN-PoppinsItalic']

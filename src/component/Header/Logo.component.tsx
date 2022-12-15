@@ -6,9 +6,9 @@ const styles = {
 };
 
 // Component:
-const Logo = () => {
+const Logo = (props: { className?: string }) => {
   return (
-    <Link to={'/'} className={styles.paragraph}>
+    <Link to={'/'} className={styles.paragraph + ' ' + props.className}>
       THE C<span className="underline ">O</span>FFEE SC<span className="underline">O</span>UT
     </Link>
   );

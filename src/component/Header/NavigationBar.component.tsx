@@ -1,22 +1,31 @@
 import { Link } from 'react-router-dom';
 
-const style = {
-  list: 'flex my-auto mx-12',
-  listElement: 'inline-block mx-3 text-sm text-clrBrown'
+const twStyle = {
+  list: ' mx-12 flex flex-row',
+  listElement: 'text-sm text-clrBrown  min-w-[75px] text-center my-auto h-full justify-center p-4'
 };
-const NavigationBar = () => {
+
+const NavigationBar = (props: { setBottomMenuVisible: any }) => {
+  const { setBottomMenuVisible } = props;
   return (
-    <ul className={style.list}>
-      <li className={style.listElement}>
+    <ul className={twStyle.list}>
+      <li className={twStyle.listElement}>
         <Link to="/">Cà phê</Link>
       </li>
-      <li className={style.listElement}>
-        <Link to="/">Trà</Link>
+      <li className={twStyle.listElement}>
+        <Link className="w-full " to="/">
+          Trà
+        </Link>
       </li>
-      <li className={style.listElement}>
-        <Link to="/product">Menu</Link>
+      <li
+        className={twStyle.listElement}
+        onMouseEnter={() => setBottomMenuVisible(true)}
+        onMouseLeave={() => setBottomMenuVisible(false)}>
+        <Link className="w-full " to="/menu">
+          Menu
+        </Link>
       </li>
-      <li className={style.listElement}>
+      <li className={twStyle.listElement}>
         <Link to="/">Cửa hàng</Link>
       </li>
     </ul>
