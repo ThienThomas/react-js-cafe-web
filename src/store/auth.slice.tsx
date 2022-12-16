@@ -1,18 +1,28 @@
+/* eslint-disable no-unused-vars */
+
 import { createSlice } from '@reduxjs/toolkit';
+
 const initialState = {
-  accessToken: Math.random().toString(),
-  accessTokenForwarded: Math.random().toString()
+  accessToken: '',
+  errorLogin: ''
 };
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    saveAccessToken(state, action) {
-      state.accessToken = action.payload.accessToken;
-      state.accessTokenForwarded = action.payload.accessTokenForwarded;
+    login(state, payload) {
+      console.log(11);
     },
-    removeAccessToken(state) {
+    loginStart(state) {
+      state.errorLogin = '12';
+    },
+    loginSuccess(state, payload) {
+      state.accessToken = payload.payload.accessToken;
+      state.errorLogin = '12';
+    },
+    loginFailed(state, payload) {
       state.accessToken = '';
+      state.errorLogin = payload.payload.errorLogin;
     }
   }
 });
