@@ -1,6 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
+  "proxy": "https://web-clone-the-coffee-house-production.up.railway.app",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",

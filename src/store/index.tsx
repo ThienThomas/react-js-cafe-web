@@ -6,8 +6,10 @@ import storage from 'redux-persist/lib/storage';
 import { rootSaga } from '../sagas';
 
 import authSlice from './auth.slice';
+import userSlice from './user.slice';
 const reducers = combineReducers({
-  auth: authSlice.reducer
+  auth: authSlice.reducer,
+  user: userSlice.reducer
 });
 
 const persistConfig = {
@@ -25,5 +27,6 @@ export const store = configureStore({
 sagaMiddleWare.run(rootSaga);
 
 export const actions = {
-  auth: authSlice.actions
+  auth: authSlice.actions,
+  user: userSlice.actions
 };

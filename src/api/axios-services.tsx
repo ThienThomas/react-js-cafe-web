@@ -22,52 +22,45 @@ export const AxiosService = (() => {
     getInstance().defaults.headers.common[name] = value;
   };
 
-  const removeHeader = (name: string) => {
-    delete getInstance().defaults.headers.common[name];
+  const headerConfig = () => {
+    return {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
+    };
   };
-
-  const handleSuccess = (response: any) => {
-    return response;
+  const headerConfigWithAuthRequired = () => {
+    return {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getAccessToken()
+    };
   };
-
-  const pushHeaderBearerToken = (isAuthRequired: boolean) => {
-    return { Authorization: isAuthRequired ? 'Bearer ' + getAccessToken() : '' };
-  };
-
   //GET
   const get = async <P, R>(endpoint: string, params?: P, isAuthRequired = true): Promise<R> => {
     return getInstance().request({
       method: 'GET',
       url: endpoint,
       params: params,
-      headers: pushHeaderBearerToken(isAuthRequired)
+      headers: isAuthRequired ? headerConfigWithAuthRequired() : headerConfig()
     });
   };
   //POST
   const post = async <D, R>(endpoint: string, payload: D, isAuthRequired = true): Promise<R> => {
-    // return getInstance().post({
-    //   method: 'POST',
-    //   url: endpoint,
-    //   responseType: 'json',
-    //   headers: {
-    //     'Access-Control-Allow-Origin': '*',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   data: JSON.stringify(payload)
-    // });
-    return getInstance().post(endpoint, JSON.stringify(payload), {
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
+    return getInstance().request({
+      method: 'POST',
+      url: endpoint,
+      responseType: 'json',
+      headers: isAuthRequired ? headerConfigWithAuthRequired() : headerConfig(),
+      data: JSON.stringify(payload)
     });
   };
-  //POST
+  //PUT
   const put = (endpoint: string, payload: any, isAuthRequired = true) => {
     return getInstance().request({
       method: 'PUT',
       url: endpoint,
       responseType: 'json',
-      headers: pushHeaderBearerToken(isAuthRequired),
+      headers: isAuthRequired ? headerConfigWithAuthRequired() : headerConfig(),
       data: qs.stringify(payload)
     });
   };
@@ -77,7 +70,7 @@ export const AxiosService = (() => {
       method: 'DELETE',
       url: endpoint,
       responseType: 'json',
-      headers: pushHeaderBearerToken(isAuthRequired),
+      headers: isAuthRequired ? headerConfigWithAuthRequired() : headerConfig(),
       data: qs.stringify(payload)
     });
   };

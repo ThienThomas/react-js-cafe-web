@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 import { AxiosService } from './axios-services';
-import { EndpointConfig, getBaseUrl } from './endpoint-config';
+import { EndpointConfig } from './endpoint-config';
 
 export enum EGender {
   MALE = 'MALE',
@@ -10,6 +10,7 @@ export enum EGender {
 export interface IUserRegisterParams {
   username: string;
   password: string;
+  name: string;
   email: string;
   birth: string | Date | number;
   avatar: string;
@@ -27,11 +28,11 @@ export interface IIUserRegisterResult extends IUserRegisterParams {
 }
 
 export const registerUser = (data: IUserRegisterParams) => {
-  const url = `${getBaseUrl()}${EndpointConfig.auth.REGISTER}`;
-  return AxiosService.post<IUserRegisterParams, IIUserRegisterResult>(url, data, false);
+  const url = EndpointConfig.auth.REGISTER;
+  return AxiosService.post(url, data, false);
 };
 
 export const loginUser = (data: any) => {
-  const url = `${getBaseUrl()}${EndpointConfig.auth.LOGIN}`;
+  const url = EndpointConfig.auth.LOGIN;
   return AxiosService.post(url, data, false);
 };
