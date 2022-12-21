@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './component/Footer/Footer.component';
 import Header from './component/Header/Header.component';
+import Detail from './pages/Details/Detail';
 import { Home } from './pages/Home';
 import { Menu } from './pages/Menu';
 
@@ -14,6 +15,7 @@ function App() {
           <Route path=":category" element={<Menu />} />
           <Route path="" element={<Menu />} />
         </Route>
+        <Route path="/detail" element={<Detail />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>
