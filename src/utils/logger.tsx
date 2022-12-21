@@ -3,7 +3,8 @@
 export enum LogType {
   DEBUG = 'DEBUG',
   ERROR = 'ERROR',
-  WARNING = 'WARNING'
+  WARNING = 'WARNING',
+  INFO = 'INFO'
 }
 
 export const Logger = (data: any, type?: LogType, functionName?: string) => {

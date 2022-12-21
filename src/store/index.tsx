@@ -1,26 +1,32 @@
+import createSagaMiddleware from '@redux-saga/core';
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import thunk from 'redux-thunk';
+import { rootSaga } from '../sagas';
 
 import authSlice from './auth.slice';
+import userSlice from './user.slice';
 const reducers = combineReducers({
-  auth: authSlice.reducer
+  auth: authSlice.reducer,
+  user: userSlice.reducer
 });
 
 const persistConfig = {
   key: 'root',
   storage
 };
+
 const persistedReducer = persistReducer(persistConfig, reducers);
+const sagaMiddleWare = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: persistedReducer,
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware: [thunk]
+  middleware: [sagaMiddleWare]
 });
+sagaMiddleWare.run(rootSaga);
 
 export const actions = {
-  auth: authSlice.actions
+  auth: authSlice.actions,
+  user: userSlice.actions
 };

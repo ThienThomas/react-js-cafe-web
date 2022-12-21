@@ -1,18 +1,47 @@
+/* eslint-disable no-unused-vars */
+
 import { createSlice } from '@reduxjs/toolkit';
+
 const initialState = {
-  accessToken: Math.random().toString(),
-  accessTokenForwarded: Math.random().toString()
+  accessToken: '',
+  isLoggedIn: false,
+  errorLogin: '',
+  errorRegister: ''
 };
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    saveAccessToken(state, action) {
-      state.accessToken = action.payload.accessToken;
-      state.accessTokenForwarded = action.payload.accessTokenForwarded;
+    login(state, payload) {},
+    loginStart(state) {
+      state.errorLogin = '';
+      state.isLoggedIn = false;
+      state.errorRegister = '';
     },
-    removeAccessToken(state) {
+    loginSuccess(state, payload) {
+      state.accessToken = payload.payload.accessToken;
+      state.errorLogin = '';
+      state.isLoggedIn = true;
+    },
+    loginFailed(state, payload) {
       state.accessToken = '';
+      state.errorLogin = payload.payload.errorLogin;
+      state.isLoggedIn = false;
+    },
+    logout(state) {
+      state.accessToken = '';
+      state.errorLogin = '';
+      state.isLoggedIn = false;
+    },
+    register(state, payload) {
+      console.log('payload', payload);
+    },
+    registerStart(state) {
+      state.errorRegister = '';
+      state.isLoggedIn = false;
+    },
+    registerFailed(state, payload) {
+      state.errorRegister = payload.payload.errorRegister;
     }
   }
 });

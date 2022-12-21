@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { indicatorNameTranslate } from '../../pages/Menu/Menu.page';
-import { LoginForm } from '../Authentication/Login-form.component';
 import Cart from './Cart.component';
 import Logo from './Logo.component';
 import NavigationBar from './NavigationBar.component';
