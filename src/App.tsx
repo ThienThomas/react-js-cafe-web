@@ -7,6 +7,7 @@ import Order from './pages/Order/Order';
 import { Home } from './pages/Home';
 import { Menu } from './pages/Menu';
 import Coupon from './pages/Coupon';
+import ListStore from './pages/ListStore';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/detail" element={<Detail />}></Route>
         <Route path="/order" element={<Order />}></Route>
         <Route path="/coupon" element={<Coupon />}></Route>
+        <Route path="/list-store" element={<ListStore />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

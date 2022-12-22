@@ -16,6 +16,9 @@ module.exports = {
       },
       fontFamily: {
         sans: ['SVN-Poppins', 'SVN-PoppinsItalic']
+      },
+      backgroundImage: {
+        bgStore: "url('/src/assets/images/bgliststore.jpeg')"
       }
     }
   },
