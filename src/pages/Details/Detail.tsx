@@ -1,7 +1,7 @@
 import { temp_productions } from '../../constant/temp-data';
 import { BiIcons } from '../../assets/icons';
 import Option from './Detail.component';
-import Productions from '../Order/Production.component';
+import Productions from '../Order/Order.component';
 const Detail = () => {
   const data = temp_productions[0];
   const styles = {

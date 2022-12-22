@@ -3,4 +3,6 @@ import * as BootstrapIcons from 'react-icons/bs';
 import * as FeatherIcons from 'react-icons/fi';
 import * as GameIcons from 'react-icons/gi';
 import * as Heroicon2 from 'react-icons/hi';
-export { BootstrapIcons, FeatherIcons, Heroicon2, GameIcons, BiIcons };
+import * as AiIcons from 'react-icons/ai';
+
+export { BootstrapIcons, FeatherIcons, Heroicon2, GameIcons, BiIcons, AiIcons };

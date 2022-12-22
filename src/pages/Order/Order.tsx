@@ -6,11 +6,12 @@ import zalo from '../../assets/images/zalopay.png';
 import shopee from '../../assets/images/shopee.png';
 import bank from '../../assets/images/bank.png';
 import './Order.css';
+
+import { useState } from 'react';
+import Modal from './Modal.component';
 const Order = () => {
-  const handleAddCoupon = (event: any) => {
-    event.preventDefault();
-    //do sth
-  };
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <div className="md:max-w-[1100px] px-10 m-auto min-h-screen font-sans py-3 flex flex-col justify-center">
@@ -179,8 +180,13 @@ const Order = () => {
                   <div className="line-through">25.000 đ</div>
                 </div>
 
-                <div className="text-[#fa8c16] text-sm mt-2 mb-2">Khuyến Mãi</div>
-                <form action="">
+                <div
+                  onClick={() => setIsOpen(true)}
+                  className="text-[#fa8c16] text-sm mt-2 mb-2 cursor-pointer">
+                  Khuyến Mãi
+                </div>
+                {isOpen && <Modal setIsOpen={setIsOpen} />}
+                {/* <form action="">
                   <div className="flex items-center mb-5 gap-3">
                     <input
                       type="text"
@@ -189,7 +195,7 @@ const Order = () => {
                     />
                     <button onSubmit={handleAddCoupon}>Thêm</button>
                   </div>
-                </form>
+                </form> */}
               </div>
             </div>
             <div className="bg-[#fa8c16] p-[10px_20px] rounded-b-3xl shadow-[0px_8px_30px_#DEE6F1]">
