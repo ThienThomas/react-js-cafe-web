@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Card from '../../component/Card.component';
 import Image from '../../component/Image.component';
 import ProductionNameWithPrice from '../../component/ProductionNameWithPrice.component';
-import { temp_productions } from '../../constant/temp-data';
-import { Product } from '../../constant/type';
+import { ProductType } from '../../store/product.slice';
 const style = {
   container: 'grid grid-cols-4 items-center',
   img: 'rounded-lg m-auto shadow-xl',
@@ -13,22 +14,29 @@ const style = {
 };
 
 const Productions = (props: { data?: any }) => {
-  const tempData = props?.data ?? temp_productions.slice(0, 4);
+  const { productList } = useSelector((state: any) => {
+    return {
+      productList: state.product.productList as ProductType[]
+    };
+  });
+  const data = props.data ?? productList;
   return (
     <div className={style.container}>
-      {tempData.map((item: Product) => {
+      {data.map((item: ProductType) => {
         return (
-          <Card className={style.card} key={item.id}>
-            <>
-              <Image
-                src={item.imgUrl}
-                height={style.imgHeight}
-                width={style.imgWidth}
-                className={style.img}>
-                <ProductionNameWithPrice name={item.name} price={item.price} />
-              </Image>
-            </>
-          </Card>
+          <Link to={`/product/${item.parsedName}`} key={item.id}>
+            <Card className={style.card}>
+              <>
+                <Image
+                  src={item.imgUrl}
+                  height={style.imgHeight}
+                  width={style.imgWidth}
+                  className={style.img}>
+                  <ProductionNameWithPrice name={item.name} price={item.price} />
+                </Image>
+              </>
+            </Card>
+          </Link>
         );
       })}
     </div>

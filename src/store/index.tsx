@@ -6,10 +6,14 @@ import storage from 'redux-persist/lib/storage';
 import { rootSaga } from '../sagas';
 
 import authSlice from './auth.slice';
+import productSlice from './product.slice';
+import startUpSlice from './start-up.slice';
 import userSlice from './user.slice';
 const reducers = combineReducers({
   auth: authSlice.reducer,
-  user: userSlice.reducer
+  user: userSlice.reducer,
+  product: productSlice.reducer,
+  startup: startUpSlice.reducer
 });
 
 const persistConfig = {
@@ -28,5 +32,7 @@ sagaMiddleWare.run(rootSaga);
 
 export const actions = {
   auth: authSlice.actions,
-  user: userSlice.actions
+  user: userSlice.actions,
+  product: productSlice.actions,
+  startup: startUpSlice.actions
 };
