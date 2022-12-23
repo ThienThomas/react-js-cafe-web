@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './component/Footer/Footer.component';
 import Header from './component/Header/Header.component';
 import { useStartUp } from './hooks/start-up.hook';
-import Coupon from './pages/Coupon';
+import Coupon from './pages/Coupon/Coupon.page';
 import ProductDetail from './pages/Details/Detail';
 import { Home } from './pages/Home';
 import ListStore from './pages/ListStore';
