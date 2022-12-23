@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-import { AxiosService } from './axios-services';
+import { AxiosServicePost } from './axios-services';
 import { EndpointConfig } from './endpoint-config';
 
 export enum EGender {
@@ -28,11 +28,9 @@ export interface IIUserRegisterResult extends IUserRegisterParams {
 }
 
 export const registerUser = (data: IUserRegisterParams) => {
-  const url = EndpointConfig.auth.REGISTER;
-  return AxiosService.post(url, data, false);
+  return AxiosServicePost(EndpointConfig.auth.REGISTER, data, false);
 };
 
 export const loginUser = (data: any) => {
-  const url = EndpointConfig.auth.LOGIN;
-  return AxiosService.post(url, data, false);
+  return AxiosServicePost(EndpointConfig.auth.LOGIN, data, false);
 };

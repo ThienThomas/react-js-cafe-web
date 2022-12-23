@@ -1,92 +1,46 @@
 /* eslint-disable no-unused-vars */
 
-import axios, { AxiosInstance } from 'axios';
-import qs from 'qs';
-import { Logger, LogType } from '../utils/logger';
+import axios from 'axios';
 import { getAccessToken } from '../utils/redux-utils';
-export const AxiosService = (() => {
-  let instance: AxiosInstance;
-  const createInstance = () => {
-    var object = axios.create({
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-        Accept: '*/*'
-      },
-      timeout: 3000
-    });
-    return object;
-  };
-
-  const setHeader = (name: string, value: string) => {
-    getInstance().defaults.headers.common[name] = value;
-  };
-
-  const headerConfig = () => {
-    return {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json'
-    };
-  };
-  const headerConfigWithAuthRequired = () => {
-    return {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + getAccessToken()
-    };
-  };
-  //GET
-  const get = async <P, R>(endpoint: string, params?: P, isAuthRequired = true): Promise<R> => {
-    return getInstance().request({
-      method: 'GET',
-      url: endpoint,
-      params: params,
-      headers: isAuthRequired ? headerConfigWithAuthRequired() : headerConfig()
-    });
-  };
-  //POST
-  const post = async <D, R>(endpoint: string, payload: D, isAuthRequired = true): Promise<R> => {
-    return getInstance().request({
-      method: 'POST',
-      url: endpoint,
-      responseType: 'json',
-      headers: isAuthRequired ? headerConfigWithAuthRequired() : headerConfig(),
-      data: JSON.stringify(payload)
-    });
-  };
-  //PUT
-  const put = (endpoint: string, payload: any, isAuthRequired = true) => {
-    return getInstance().request({
-      method: 'PUT',
-      url: endpoint,
-      responseType: 'json',
-      headers: isAuthRequired ? headerConfigWithAuthRequired() : headerConfig(),
-      data: qs.stringify(payload)
-    });
-  };
-  //DELETE
-  const remove = (endpoint: string, payload: any, isAuthRequired = true) => {
-    return getInstance().request({
-      method: 'DELETE',
-      url: endpoint,
-      responseType: 'json',
-      headers: isAuthRequired ? headerConfigWithAuthRequired() : headerConfig(),
-      data: qs.stringify(payload)
-    });
-  };
-
-  const getInstance = () => {
-    if (!instance) {
-      instance = createInstance();
-    }
-    Logger({ header: instance.defaults.headers }, LogType.INFO, 'getInstance');
-    return instance;
-  };
+import { getBaseUrl } from './endpoint-config';
+const headerConfig = () => {
   return {
-    setHeader: setHeader,
-    get: get,
-    post: post,
-    put: put,
-    delete: remove
+    Accept: '*/*',
+    'Content-Type': 'application/json'
   };
-})();
+};
+const headerConfigWithAuthRequired = () => {
+  return {
+    Accept: '*/*',
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer ' + getAccessToken()
+  };
+};
+
+const configHeader = (authRequired: boolean) => {
+  return authRequired ? headerConfigWithAuthRequired() : headerConfig();
+};
+
+export const AxiosServiceGet = async (url: string, params?: any, authRequired = false) => {
+  try {
+    return await axios.get(`${getBaseUrl()}${url}`, {
+      params: params,
+      headers: configHeader(authRequired)
+    });
+  } catch (e) {
+    console.log(e);
+    return {};
+  }
+};
+
+export const AxiosServicePost = async (url: string, data?: any, authRequired = false) => {
+  try {
+    return await axios.post(`${getBaseUrl()}${url}`, {
+      data: JSON.stringify(data),
+      headerConfig: configHeader(authRequired)
+    });
+  } catch (e) {
+    console.log(e);
+    return {};
+  }
+};

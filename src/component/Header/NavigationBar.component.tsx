@@ -10,10 +10,10 @@ const NavigationBar = (props: { setBottomMenuVisible: any }) => {
   return (
     <ul className={twStyle.list}>
       <li className={twStyle.listElement}>
-        <Link to="/">Cà phê</Link>
+        <Link to="/menu/ca-phe">Cà phê</Link>
       </li>
       <li className={twStyle.listElement}>
-        <Link className="w-full " to="/">
+        <Link className="w-full " to="/menu/tra-trai-cay">
           Trà
         </Link>
       </li>
