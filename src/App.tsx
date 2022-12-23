@@ -3,12 +3,13 @@ import Footer from './component/Footer/Footer.component';
 import Header from './component/Header/Header.component';
 import Detail from './pages/Details/Detail';
 import Order from './pages/Order/Order';
-
+import { useStartUp } from './hooks/start-up.hook';
+import Coupon from './pages/Coupon';
 import { Home } from './pages/Home';
 import { Menu } from './pages/Menu';
-import Coupon from './pages/Coupon';
 
 function App() {
+  useStartUp();
   return (
     <BrowserRouter>
       <Header />

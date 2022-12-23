@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { orderBy } from 'lodash';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { GameIcons } from '../../assets/icons';
 import { temp_productions } from '../../constant/temp-data';
@@ -25,6 +26,8 @@ export const indicatorNameTranslate: any = {
 
 const Menu = () => {
   let { category } = useParams();
+  const productList = useSelector((state: any) => state.product.productList);
+  console.log(productList);
   const [indicatorIndex, setIndicatorIndex] = useState<ProductMenu | any>(
     category?.toUpperCase() ?? ProductMenu.ALL
   );
