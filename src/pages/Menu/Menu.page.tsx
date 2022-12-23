@@ -1,77 +1,60 @@
 /* eslint-disable no-unused-vars */
-import { orderBy } from 'lodash';
-import { useEffect, useState } from 'react';
+import { filter, find } from 'lodash';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { GameIcons } from '../../assets/icons';
-import { temp_productions } from '../../constant/temp-data';
-import { Product, ProductMenu } from '../../constant/type';
+import { ProductMenu } from '../../constant/type';
+import { ProductGroupType, ProductType } from '../../store/product.slice';
+import { getProductGroup } from '../../utils/redux-utils';
 import Productions from '../Home/Production.component';
 const styles = {
   container: 'container px-10 m-auto py-5 flex flex-row min-h-screen',
-  leftIndicator: 'p-4 w-[15%]',
-  rightBanner: 'p-4 w-[85%]'
+  leftIndicator: 'p-4 w-[20%]',
+  rightBanner: 'p-4 w-[80%]'
 };
 
-export const indicatorNameTranslate: any = {
-  [ProductMenu.ALL]: 'Tất cả',
-  [ProductMenu.COFFEE]: 'Cà phê',
-  [ProductMenu.CLOUDFEE]: 'CloudFee',
-  [ProductMenu.CLOUDTEA]: 'CloudTee',
-  [ProductMenu.HITEA]: 'HiTea',
-  [ProductMenu.HOMECOFFEE]: 'HomeCoffee',
-  [ProductMenu.MILKTEA]: 'MilkTea',
-  [ProductMenu.SNACK]: 'Snack'
-};
+export const indicatorNameTranslate: ProductGroupType[] = getProductGroup();
 
 const Menu = () => {
   let { category } = useParams();
-  const productList = useSelector((state: any) => state.product.productList);
-  console.log(productList);
-  const [indicatorIndex, setIndicatorIndex] = useState<ProductMenu | any>(
-    category?.toUpperCase() ?? ProductMenu.ALL
-  );
+  const { productList, productGroup } = useSelector((state: any) => {
+    return {
+      productList: state.product.productList as ProductType[],
+      productGroup: state.product.productGroup as ProductGroupType[]
+    };
+  });
+  const indicatorIndex = category ?? ProductMenu.ALL;
+  const categoryId = find(productGroup, (item: ProductGroupType) => item.parsedName === category);
+  console.log(categoryId);
 
-  console.log(category?.toUpperCase());
-
-  const tempData =
+  const data =
     indicatorIndex === ProductMenu.ALL
-      ? orderBy(temp_productions, [(item) => item.type])
-      : temp_productions.filter((item: Product) => item.type === indicatorIndex);
-
-  useEffect(() => {
-    setIndicatorIndex(category?.toUpperCase() ?? ProductMenu.ALL);
-  }, [category]);
+      ? productList
+      : filter(productList, (item: ProductType) => item.productGroup.id === categoryId?.id);
 
   return (
     <div className={styles.container}>
       <div className={styles.leftIndicator}>
         <div className="sticky top-20">
-          {Object.keys(indicatorNameTranslate).map((item: any, index: number) => (
+          {productGroup.map((item: ProductGroupType, index: number) => (
             <IndicatorItem
-              title={indicatorNameTranslate[item]}
+              title={item.name}
               key={index}
-              onClick={() => setIndicatorIndex(item)}
-              isSelected={indicatorIndex === item}
-              param={item.toLowerCase()}
+              isSelected={categoryId?.id === item.id}
+              param={item.parsedName}
             />
           ))}
         </div>
       </div>
       <div className={styles.rightBanner}>
-        <Productions data={tempData} />
+        <Productions data={data} />
       </div>
     </div>
   );
 };
 
-const IndicatorItem = (props: {
-  title: string;
-  onClick?: any;
-  isSelected?: boolean;
-  param: string;
-}) => {
-  const { title, onClick, isSelected, param } = props;
+const IndicatorItem = (props: { title: string; isSelected?: boolean; param?: string }) => {
+  const { title, isSelected, param } = props;
   return (
     <Link to={`/menu/${param}`} className="flex flex-row  items-center py-2">
       <div className="w-1/6 h-full">

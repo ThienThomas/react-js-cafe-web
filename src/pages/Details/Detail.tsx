@@ -1,12 +1,30 @@
-import { temp_productions } from '../../constant/temp-data';
+/* eslint-disable no-unused-vars */
+
+import { find } from 'lodash';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { BiIcons } from '../../assets/icons';
+import { ProductType } from '../../store/product.slice';
+import Productions from '../Home/Production.component';
 import Option from './Detail.component';
-import Productions from '../Order/Production.component';
-const Detail = () => {
-  const data = temp_productions[0];
+const CurrencyFormat = require('react-currency-format');
+
+const ProductDetail = () => {
+  let { product } = useParams();
+
+  const { productList } = useSelector((state: any) => {
+    return {
+      productList: state.product.productList
+    };
+  });
+  const productData: ProductType = find(
+    productList,
+    (item: ProductType) => item.parsedName === product
+  );
   const styles = {
     container: 'container px-10 m-auto py-5 min-h-screen font-sans'
   };
+  const relevants = productList.slice(0, 4);
   return (
     <div className={styles.container}>
       <div className="flex">
@@ -19,22 +37,22 @@ const Detail = () => {
         </a>
         <div className="mx-1">/</div>
         <a href="" className="">
-          {' '}
           Sản Phẩm
         </a>
       </div>
-
       <div className="flex mt-[35px]">
         <div className="flex-1">
-          <img src={data.imgUrl} alt="Hình Sản Phẩm" className="w-[570px] h-[570px]" />
+          <img src={productData.imgUrl} alt="Hình Sản Phẩm" className="w-[570px] h-[570px]" />
         </div>
-
         <div className="flex-1 pl-8">
-          <div className="text-[26px] mb-4">{data.name}</div>
+          <div className="text-[26px] mb-4">{productData.name}</div>
           <div className="text-[26px] mb-[18px] text-[#E57905] font-semibold flex">
-            <div>{data.price}</div>
-            &nbsp;
-            <div>đ</div>
+            <CurrencyFormat
+              value={productData.price}
+              thousandSeparator={true}
+              displayType={'text'}
+              suffix={' VND'}
+            />
           </div>
           <div className="bg-[#E57905] flex rounded-md items-center w-full h-[46px] justify-center py-3">
             <BiIcons.BiShoppingBag color={'#fff'} className="w-[21px] h-[21px] mr-2" />
@@ -65,19 +83,15 @@ const Detail = () => {
 
       <div className="mt-[45px] border-t border-t-solid border-[#eee] py-[38px]">
         <div className="font-semibold text-lg mb-2">Mô tả sản phẩm</div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quidem est dolore deserunt
-          debitis optio. Aliquid praesentium totam corrupti harum, explicabo porro dolore mollitia
-          iste commodi facere nam fugit laborum?
-        </p>
+        <p>{productData.description}</p>
       </div>
 
       <div className="border-t border-t-solid border-[#eee] py-[38px]">
         <div className="font-semibold text-lg mb-2">Sản phẩm liên quan</div>
-        <Productions />
+        <Productions data={relevants} />
       </div>
     </div>
   );
 };
 
-export default Detail;
+export default ProductDetail;

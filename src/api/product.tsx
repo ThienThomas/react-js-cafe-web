@@ -8,3 +8,7 @@ export const getAllProductAPI = async () => {
     false
   );
 };
+
+export const getAllProductGroupAPI = async () => {
+  return await AxiosServiceGet(EndpointConfig.product.GET_ALL_PRODUCT_GROUP, undefined, false);
+};

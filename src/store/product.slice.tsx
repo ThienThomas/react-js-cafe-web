@@ -1,10 +1,28 @@
 /* eslint-disable no-unused-vars */
-
+/* eslint-disable no-undef */
 import { createSlice } from '@reduxjs/toolkit';
 
+export type ProductGroupType = {
+  id: string;
+  name: string;
+  parsedName?: string;
+};
+
+export type ProductType = {
+  id: string;
+  name: string;
+  imgUrl: string;
+  price: number;
+  description: string;
+  productGroup: ProductGroupType;
+  parsedName?: string;
+};
+
 const initialState = {
-  productList: [],
-  getAllProductErr: ''
+  productList: [] as ProductType[],
+  productGroup: [] as ProductGroupType[],
+  getAllProductErr: '',
+  getAllProductGroupErr: ''
 };
 const productSlice = createSlice({
   name: 'product',
@@ -19,6 +37,16 @@ const productSlice = createSlice({
     },
     getAllProductFailed(state, payload) {
       state.getAllProductErr = payload.payload.getAllProductErr;
+    },
+    getAllProductGroup(state) {},
+    getAllProductGroupStart(state) {
+      state.getAllProductGroupErr = '';
+    },
+    getAllProductGroupSuccess(state, payload) {
+      state.productGroup = payload.payload.productGroup;
+    },
+    getAllProductGrouptFailed(state, payload) {
+      state.getAllProductGroupErr = payload.payload.getAllProductGroupErr;
     }
   }
 });

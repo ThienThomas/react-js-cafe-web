@@ -10,12 +10,5 @@ export interface Product {
 }
 
 export enum ProductMenu {
-  COFFEE = 'COFFEE',
-  CLOUDFEE = 'CLOUDFEE',
-  CLOUDTEA = 'CLOUDTEA',
-  HITEA = 'HITEA',
-  MILKTEA = 'MILKTEA',
-  HOMECOFFEE = 'HOMECOFFEE',
-  SNACK = 'SNACK',
   ALL = 'ALL'
 }

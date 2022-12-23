@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BiIcons } from '../../assets/icons';
+const CurrencyFormat = require('react-currency-format');
 
 const Option = (props: { sizeImg?: number; text: string; price: number; icon?: string }) => {
   const [active, setActive] = useState(false);
@@ -17,7 +18,15 @@ const Option = (props: { sizeImg?: number; text: string; price: number; icon?: s
       }>
       <BiIcons.BiCoffee size={props.sizeImg} className={props.icon} />
       <p>{props.text}</p>
-      <p>+ {props.price} đ</p>
+      <p>
+        +
+        <CurrencyFormat
+          value={props.price}
+          thousandSeparator={true}
+          displayType={'text'}
+          suffix={' VND'}
+        />
+      </p>
     </button>
   );
 };
