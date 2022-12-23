@@ -8,6 +8,7 @@ import { Home } from './pages/Home';
 import { Menu } from './pages/Menu';
 import Coupon from './pages/Coupon';
 import ListStore from './pages/ListStore';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/order" element={<Order />}></Route>
         <Route path="/coupon" element={<Coupon />}></Route>
         <Route path="/list-store" element={<ListStore />}></Route>
+        <Route path="/admin" element={<Admin />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>
