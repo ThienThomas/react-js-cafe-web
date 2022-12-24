@@ -124,7 +124,7 @@ const Cart = () => {
               </div>
             </div>
             <div className="cursor-pointer text-white bg-[#fa8c16] p-[6px_24px] flex items-center rounded-lg justify-center font-extrabold text-lg">
-              Đặt Hàng
+              <Link to="/order">Đặt Hàng</Link>
             </div>
           </div>
         </div>

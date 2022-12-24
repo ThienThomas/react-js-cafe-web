@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { FeatherIcons } from '../../assets/icons';
 import { BottomAccountOptions } from '../Authentication/Bottom-account-options.component';
 import { LoginForm } from '../Authentication/Login-form.component';
@@ -26,9 +27,9 @@ const Cart = () => {
   return (
     <>
       <div className={style.container}>
-        <Button className={style.iconWrapper}>
+        <Link className={style.iconWrapper} to="/cart">
           <FeatherIcons.FiShoppingBag color={'#FC8621'} size={25} />
-        </Button>
+        </Link>
         <Button
           className={style.iconWrapper}
           onMouseEnter={onMouseEnter}

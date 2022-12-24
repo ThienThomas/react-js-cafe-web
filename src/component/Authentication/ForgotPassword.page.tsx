@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getBaseUrl } from '../../api/endpoint-config';
-import { actions } from '../../store';
+import { Link } from 'react-router-dom';
 
 const className = {
   container: 'container mx-auto p-10 h-screen',
   heading: 'text-2xl',
-  button: 'w-[175px] mt-2 bg-clrOrange p-2 rounded-lg font-bold text-clrWhite',
+  button: 'w-[175px] mt-10 bg-clrOrange p-2 rounded-lg font-bold text-clrWhite',
   input:
     'w-[250px] block focus:outline-none transition-all duration-750 focus:border-clrOrange border p-2 rounded-lg mt-2 text-sm'
 };
@@ -15,11 +13,10 @@ const ForgotPassword = () => {
   const onChangeEmail = (event: any) => {
     setEmail(event.target.value);
   };
-  const dispatch = useDispatch();
 
   const submitForm = (event: any) => {
     event && event.preventDefault();
-    dispatch(actions.auth.resetPassword({ host: getBaseUrl(), email: email }));
+    // dispatch(actions.auth.resetPassword({ host: getBaseUrl(), email: email }));
   };
 
   return (
@@ -33,9 +30,9 @@ const ForgotPassword = () => {
           type="email"
           className={className.input}
         />
-        <button className={className.button} type="submit">
+        <Link className={className.button} to="/reset-password">
           Đặt lại mật khẩu
-        </button>
+        </Link>
       </form>
     </div>
   );
