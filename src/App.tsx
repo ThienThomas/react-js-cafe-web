@@ -10,6 +10,8 @@ import { Menu } from './pages/Menu';
 import Order from './pages/Order/Order';
 import Profile from './pages/Profile';
 import Cart from './pages/Profile/Cart';
+import ChangePassword from './pages/Profile/ChangePassword';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   useStartUp();
@@ -30,6 +32,8 @@ function App() {
         <Route path="/list-store" element={<ListStore />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/change-password" element={<ChangePassword />}></Route>
+        <Route path="/reset-password" element={<ResetPassword />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -1,6 +1,6 @@
-import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar';
+import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
-import { BiIcons, RiIcons } from '../../assets/icons';
+import { BiIcons } from '../../assets/icons';
 
 const Profile = () => {
   const handleSubmit = (event: any) => {
@@ -10,15 +10,22 @@ const Profile = () => {
     <div className="flex w-full">
       <Sidebar>
         <Menu>
+          <SubMenu label="Hồ Sơ">
+            <MenuItem>
+              <Link className="flex items-center gap-2 text-[#FA8A2A]" to="/profile">
+                <BiIcons.BiUser />
+                Thông tin
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link className="flex items-center gap-2 " to="/change-password">
+                <BiIcons.BiLockAlt />
+                Thay đổi mật khẩu
+              </Link>
+            </MenuItem>
+          </SubMenu>
           <MenuItem>
-            <Link className="flex items-center gap-2 text-[#FA8A2A]" to="/profile">
-              <BiIcons.BiUser />
-              Thông tin
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <Link className="flex items-center gap-2" to="/user-list-order">
-              <RiIcons.RiShoppingBag3Line />
+            <Link className="flex items-center gap-2" to="/cart">
               Giỏ Hàng
             </Link>
           </MenuItem>
@@ -75,7 +82,7 @@ const Profile = () => {
                 className="w-[720px] h-[45px] p-[10px] text-slate-800 text-sm border border-solid border-slate-400 rounded-xl mb-5 outline-none"
               />
             </div>
-            <div className="flex">
+            <div className="flex mb-7">
               <button
                 className="flex items-center justify-end p-[10px_20px] rounded-solid border-transparent rounded-3xl border bg-[#FA8A2A] text-white hover:bg-orange-400"
                 onSubmit={handleSubmit}>
