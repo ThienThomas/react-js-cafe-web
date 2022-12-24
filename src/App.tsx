@@ -10,6 +10,8 @@ import { Menu } from './pages/Menu';
 import Order from './pages/Order/Order';
 import Profile from './pages/Profile';
 import Cart from './pages/Profile/Cart';
+import ChangePassword from './pages/Profile/ChangePassword';
+import ResetPassword from './pages/ResetPassword';
 import Store from './pages/Store';
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
         <Route path="/forgot" element={<ForgotPassword />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
       <Footer />
     </BrowserRouter>

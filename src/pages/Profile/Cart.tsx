@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar';
+import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
 import { BiIcons, RiIcons } from '../../assets/icons';
 
@@ -15,15 +15,22 @@ const Cart = () => {
     <div className="flex w-full">
       <Sidebar>
         <Menu>
+          <SubMenu label="Hồ Sơ">
+            <MenuItem>
+              <Link className="flex items-center gap-2" to="/profile">
+                <BiIcons.BiUser />
+                Thông tin
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link className="flex items-center gap-2 " to="/change-password">
+                <BiIcons.BiLockAlt />
+                Thay đổi mật khẩu
+              </Link>
+            </MenuItem>
+          </SubMenu>
           <MenuItem>
-            <Link className="flex items-center gap-2" to="/profile">
-              <BiIcons.BiUser />
-              Thông tin
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <Link className="flex items-center gap-2 text-[#FA8A2A]" to="/user-list-order">
-              <RiIcons.RiShoppingBag3Line />
+            <Link className="flex items-center gap-2 text-[#FA8A2A]" to="/cart">
               Giỏ Hàng
             </Link>
           </MenuItem>
