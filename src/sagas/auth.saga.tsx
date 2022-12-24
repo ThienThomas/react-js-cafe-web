@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { IUserRegisterParams, loginUser, registerUser } from '../api/auth';
+import { IUserRegisterParams, loginUser, registerUser, resetPassword } from '../api/auth';
 import { actions } from '../store';
 
 const TAG = 'auth.saga';
@@ -26,8 +26,6 @@ function* callRegisterAPI(action: any): any {
   const body = action.payload as IUserRegisterParams;
   yield put(actions.auth.registerStart());
   try {
-    console.log(body);
-
     const response = yield call(registerUser, body);
     if (response.status === 200 && !response.hasErrors) {
       yield put(actions.auth.login({ username: body.username, password: body.password }));
@@ -39,9 +37,20 @@ function* callRegisterAPI(action: any): any {
 function* callLogOutActions(): any {
   yield put(actions.user.deleteUserInfo());
 }
-
+function* callResetPasswordAPI(action: any): any {
+  const params = put(actions.auth.registerStart());
+  try {
+    const response = yield call(resetPassword, params);
+    if (response.status === 200 && !response.hasErrors) {
+      yield put(actions.auth.resetPasswordSuccess({ resetPasswordSuccess: response.status }));
+    } else yield put(actions.auth.resetPasswordFailed({ errorResetPassword: response.status }));
+  } catch (e) {
+    yield put(actions.auth.resetPasswordFailed({ errorResetPassword: 'internal Error' }));
+  }
+}
 export function* actionAuthWatcher() {
   yield takeLatest('auth/login', callLoginAPI);
   yield takeLatest('auth/logout', callLogOutActions);
   yield takeLatest('auth/register', callRegisterAPI);
+  yield takeLatest('auth/resetPassword', callResetPasswordAPI);
 }

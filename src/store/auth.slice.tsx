@@ -6,7 +6,9 @@ const initialState = {
   accessToken: '',
   isLoggedIn: false,
   errorLogin: '',
-  errorRegister: ''
+  errorRegister: '',
+  errorResetPassword: '',
+  resetPasswordSuccess: ''
 };
 const authSlice = createSlice({
   name: 'auth',
@@ -42,6 +44,17 @@ const authSlice = createSlice({
     },
     registerFailed(state, payload) {
       state.errorRegister = payload.payload.errorRegister;
+    },
+    resetPassword(state, payload) {},
+    resetPasswordStart(state) {
+      state.errorResetPassword = '';
+      state.resetPasswordSuccess = '';
+    },
+    resetPasswordSuccess(state, payload) {
+      state.resetPasswordSuccess = payload.payload.resetPasswordSuccess;
+    },
+    resetPasswordFailed(state, payload) {
+      state.errorResetPassword = payload.payload.errorResetPassword;
     }
   }
 });

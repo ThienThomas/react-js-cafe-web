@@ -45,7 +45,7 @@ const BottomMenu = (props: { visible: boolean; setBottomMenuVisible: any }) => {
       <div className="container px-10 m-auto grid grid-cols-8">
         {productGroup.map((item: ProductGroupType, index: number) => (
           <Link
-            className="text-center transition-all duration-500 hover:text-clrOrange hover:underline hover:decoration-dashed hover:underline-offset-5"
+            className="my-2 transition-all duration-500 hover:text-clrOrange hover:underline hover:decoration-dashed hover:underline-offset-5"
             to={`/menu/${item.parsedName}`}
             key={`${item.id}${index}`}>
             {item.name}

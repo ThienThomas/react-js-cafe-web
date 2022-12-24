@@ -5,7 +5,8 @@ export const EndpointConfig = {
   auth: {
     VALIDATE_TOKEN: '/auth/validateToken', // validate a jwt token
     REGISTER: '/auth/register', // Register a new customer account
-    LOGIN: '/auth/login'
+    LOGIN: '/auth/login',
+    RESET: '/auth/resetPassword'
   },
   product: {
     GET_ALL_PRODUCTS: '/api/ProductsManagement/common/GetAllProducts',
