@@ -9,8 +9,10 @@ import './Order.css';
 
 import { useState } from 'react';
 import Modal from './Modal.component';
+import ModalNewProduct from './ModalNewProduct.component';
 const Order = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenModalNewProduct, setIsOpenModalNewProduct] = useState(false);
 
   return (
     <>
@@ -141,10 +143,12 @@ const Order = () => {
                   <hr className="w-[52px] h-[3px] bg-[#fa8c16]" />
                 </div>
                 <div
+                  onClick={() => setIsOpenModalNewProduct(true)}
                   className="w-[88px] h-[40px] p-[7px_5px] cursor-pointer border border-solid border-[#262626] rounded-3xl text-xs flex text-center items-center justify-center
               ">
                   Thêm món
                 </div>
+                {isOpenModalNewProduct && <ModalNewProduct setIsOpen={setIsOpenModalNewProduct} />}
               </div>
 
               <div className="flex justify-between items-center">
@@ -194,7 +198,7 @@ const Order = () => {
                   <div className="text-sm text-white">Thành tiền</div>
                   <div className="text-sm font-semibold text-white">110.000</div>
                 </div>
-                <div className="w-[112px h-[48px] cursor-pointer bg-white text-[#fa8c16] p-[6px_24px] flex items-center rounded-[30px]">
+                <div className="w-[132px] h-[48px] cursor-pointer bg-white text-[#fa8c16] p-[6px_24px] flex items-center rounded-[30px]">
                   Đặt Hàng
                 </div>
               </div>
