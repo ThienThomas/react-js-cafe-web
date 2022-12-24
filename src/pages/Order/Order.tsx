@@ -1,10 +1,10 @@
 import { BiIcons } from '../../assets/icons';
-import shipper from '../../assets/images/img-deliver.png';
-import money from '../../assets/images/realMoney.jpeg';
-import momo from '../../assets/images/momo.png';
-import zalo from '../../assets/images/zalopay.png';
-import shopee from '../../assets/images/shopee.png';
 import bank from '../../assets/images/bank.png';
+import shipper from '../../assets/images/img-deliver.png';
+import momo from '../../assets/images/momo.png';
+import money from '../../assets/images/realMoney.jpeg';
+import shopee from '../../assets/images/shopee.png';
+import zalo from '../../assets/images/zalopay.png';
 import './Order.css';
 
 import { useState } from 'react';
@@ -186,16 +186,6 @@ const Order = () => {
                   Khuyến Mãi
                 </div>
                 {isOpen && <Modal setIsOpen={setIsOpen} />}
-                {/* <form action="">
-                  <div className="flex items-center mb-5 gap-3">
-                    <input
-                      type="text"
-                      placeholder="Nhập mã khuyến mãi"
-                      className="w-[70%] border border-solid rounded-xl p-[10px_20px] text-sm"
-                    />
-                    <button onSubmit={handleAddCoupon}>Thêm</button>
-                  </div>
-                </form> */}
               </div>
             </div>
             <div className="bg-[#fa8c16] p-[10px_20px] rounded-b-3xl shadow-[0px_8px_30px_#DEE6F1]">
