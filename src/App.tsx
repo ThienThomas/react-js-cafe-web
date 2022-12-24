@@ -8,6 +8,8 @@ import { Home } from './pages/Home';
 import ListStore from './pages/ListStore';
 import { Menu } from './pages/Menu';
 import Order from './pages/Order/Order';
+import Profile from './pages/Profile';
+import Cart from './pages/Profile/Cart';
 
 function App() {
   useStartUp();
@@ -26,6 +28,8 @@ function App() {
         <Route path="/order" element={<Order />}></Route>
         <Route path="/coupon" element={<Coupon />}></Route>
         <Route path="/list-store" element={<ListStore />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>
