@@ -12,9 +12,10 @@ const style = {
 const Cart = () => {
   const [bottomAccountOptionVisible, setBottomAccountOptionVisible] = useState(false);
   const [loginFormVisible, setLoginFormVisible] = useState(false);
-  const { isLoggedIn } = useSelector((state: any) => {
+  const { isLoggedIn, user } = useSelector((state: any) => {
     return {
-      isLoggedIn: state.auth.isLoggedIn
+      isLoggedIn: state.auth.isLoggedIn,
+      user: state.user
     };
   });
   const onMouseLeave = () => {
@@ -31,10 +32,14 @@ const Cart = () => {
           <FeatherIcons.FiShoppingBag color={'#FC8621'} size={25} />
         </Link>
         <Button
-          className={style.iconWrapper}
+          className={user.avatar ? '' : style.iconWrapper}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}>
-          <FeatherIcons.FiUser color={'#FC8621'} size={25} />
+          {user.avatar ? (
+            <img src={user.avatar} width={35} height={35} className={'rounded-full'} />
+          ) : (
+            <FeatherIcons.FiUser color={'#FC8621'} size={25} />
+          )}
         </Button>
         <BottomAccountOptions
           visible={bottomAccountOptionVisible}
