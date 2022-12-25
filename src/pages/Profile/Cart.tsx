@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BiIcons, RiIcons } from '../../assets/icons';
 
@@ -11,7 +12,12 @@ const Cart = () => {
   const decreaseQuantity = () => {
     setQty(qty - 1);
   };
-  return (
+  const { isLoggedIn } = useSelector((state: any) => {
+    return {
+      isLoggedIn: state.auth.isLoggedIn
+    };
+  });
+  return isLoggedIn ? (
     <div className="flex w-full">
       <Sidebar>
         <Menu>
@@ -129,6 +135,10 @@ const Cart = () => {
           </div>
         </div>
       </div>
+    </div>
+  ) : (
+    <div className="h-screen px-28 mt-2">
+      <h1 className="text-2xl">Vui lòng đăng nhập để tiếp tục</h1>
     </div>
   );
 };

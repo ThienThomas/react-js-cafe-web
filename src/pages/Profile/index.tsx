@@ -1,4 +1,5 @@
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BiIcons } from '../../assets/icons';
 
@@ -6,7 +7,12 @@ const Profile = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
   };
-  return (
+  const { isLoggedIn } = useSelector((state: any) => {
+    return {
+      isLoggedIn: state.auth.isLoggedIn
+    };
+  });
+  return isLoggedIn ? (
     <div className="flex w-full">
       <Sidebar>
         <Menu>
@@ -92,6 +98,10 @@ const Profile = () => {
           </form>
         </div>
       </div>
+    </div>
+  ) : (
+    <div className="h-screen px-28 mt-2">
+      <h1 className="text-2xl">Vui lòng đăng nhập để tiếp tục</h1>
     </div>
   );
 };
