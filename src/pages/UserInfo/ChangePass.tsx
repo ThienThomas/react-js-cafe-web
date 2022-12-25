@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { changePassword } from '../../api/auth';
 import Input from '../../component/Common/Input';
@@ -6,7 +6,12 @@ import Message from '../../component/Common/Message';
 import useUserSlice from '../../hooks/useUserSlice';
 
 const ChangePass = () => {
-  const { register, watch, handleSubmit, formState: {errors} } = useForm({
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
     defaultValues: {
       oldPassword: '',
       newPassword: '',
@@ -14,23 +19,21 @@ const ChangePass = () => {
     }
   });
 
-  const [errorSer, setErrorSer] = useState()
+  const [errorSer, setErrorSer] = useState();
 
-  const {token} = useUserSlice()
-
-  
+  const { token } = useUserSlice();
 
   const onSubmit = async (data: any) => {
     try {
-        await changePassword(token, data)
+      await changePassword(token, data);
     } catch (error: any) {
-        setErrorSer(error?.message)
+      setErrorSer(error?.message);
     }
-  }
+  };
 
   return (
     <div>
-      <form action="" className="py-10" onSubmit={handleSubmit(data => onSubmit(data))}>
+      <form action="" className="py-10" onSubmit={handleSubmit((data) => onSubmit(data))}>
         <Input
           register={{
             ...register('oldPassword', {
@@ -47,7 +50,8 @@ const ChangePass = () => {
               required: 'Trường này không được để trống',
               pattern: {
                 value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/,
-                message: "Mật khẩu có ít nhất 6 ký tự, ít nhất một chữ số, ít nhất một ký tự đặc biệt và ít nhất một ký tự viết hoa"
+                message:
+                  'Mật khẩu có ít nhất 6 ký tự, ít nhất một chữ số, ít nhất một ký tự đặc biệt và ít nhất một ký tự viết hoa'
               }
             })
           }}
@@ -58,7 +62,7 @@ const ChangePass = () => {
         <Input
           register={{
             ...register('confirmPassword', {
-              validate: (value) => value === watch('newPassword') || 'Password không hợp lệ'
+              validate: (value: any) => value === watch('newPassword') || 'Password không hợp lệ'
             })
           }}
           type="password"
@@ -71,7 +75,7 @@ const ChangePass = () => {
       </form>
 
       <div className="">
-        <Message message={errorSer}/>
+        <Message message={errorSer} />
       </div>
     </div>
   );

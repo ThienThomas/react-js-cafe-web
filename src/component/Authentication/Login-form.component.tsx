@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { EGender, IUserRegisterParams } from '../../api/auth';
 import { Images } from '../../assets/image';
 import { actions } from '../../store';
@@ -68,7 +69,6 @@ export const LoginForm = (props: { visible: boolean; onClose: any }) => {
           avatar: 'none'
         } as IUserRegisterParams)
       );
-    // console.log({ name, username, password, email, phone, gender, birth, avatar: 'none' });
   };
 
   const handleSubmitForm = (event: any) => {
@@ -192,7 +192,7 @@ export const LoginForm = (props: { visible: boolean; onClose: any }) => {
             </div>
           )}
           <button className={styles.button} type="submit">
-            {isLogin ? "Đăng Nhập" : "Đăng ký"}
+            {isLogin ? 'Đăng Nhập' : 'Đăng ký'}
           </button>
           <p className="text-sm text-center my-2">
             {isLogin ? 'Chưa có tài khoản ? ' : 'Đã có tài khoản ? '}
@@ -202,6 +202,11 @@ export const LoginForm = (props: { visible: boolean; onClose: any }) => {
               </button>
             </span>
           </p>
+          <span className="text-clrOrange text-sm">
+            <Link to="/forgot" className="text-center w-full" onClick={onClose}>
+              Quên mật khẩu ?
+            </Link>
+          </span>
         </form>
       </div>
     </div>

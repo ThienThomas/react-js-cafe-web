@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { updateUser, uploadAvatar } from '../../api/auth';
-import Button from '../../component/Button.component';
+import { uploadAvatar } from '../../api/auth';
 import Input from '../../component/Common/Input';
 import Message from '../../component/Common/Message';
 import useUserSlice from '../../hooks/useUserSlice';
 
 const Info = () => {
-
-  const { register, setValue, handleSubmit, formState: {errors} } = useForm({
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
     defaultValues: {
       name: '',
       username: '',
@@ -34,20 +37,17 @@ const Info = () => {
   });
 
   const onSubmit = async (data: any) => {
-    const imageBuffer = new FormData()
-    imageBuffer.append('avatar', data.avatar[0])
+    const imageBuffer = new FormData();
+    imageBuffer.append('avatar', data.avatar[0]);
     try {
-        await uploadAvatar(imageBuffer, data?.username)
-        // await updateUser(data)
-    } catch (error) {
-        
-    }
-  }
-
+      await uploadAvatar(imageBuffer, data?.username);
+      // await updateUser(data)
+    } catch (error) {}
+  };
 
   return (
     <div>
-      <form action="" className="py-10 " onSubmit={handleSubmit((data) => onSubmit(data) )}>
+      <form action="" className="py-10 " onSubmit={handleSubmit((data: any) => onSubmit(data))}>
         <Input
           register={{
             ...register('name', {
@@ -74,7 +74,7 @@ const Info = () => {
             <input value={'MALE'} type={'radio'} {...registerGender} placeholder=" " />
             <label className="">{'Nam'}</label>
           </div>
-          <Message message={errors?.gender?.message}/>
+          <Message message={errors?.gender?.message} />
         </div>
 
         <Input
@@ -86,7 +86,6 @@ const Info = () => {
           }}
           label="Ngày Sinh"
           errors={errors?.birth?.message}
-
         />
         <Input
           type="email"
@@ -101,7 +100,6 @@ const Info = () => {
           }}
           label="Email"
           errors={errors?.email?.message}
-
         />
         <Input
           register={{
@@ -115,7 +113,6 @@ const Info = () => {
           }}
           label="phone"
           errors={errors?.phone?.message}
-
         />
         <Input
           type="file"

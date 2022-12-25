@@ -26,8 +26,6 @@ function* callRegisterAPI(action: any): any {
   const body = action.payload as IUserRegisterParams;
   yield put(actions.auth.registerStart());
   try {
-    console.log(body);
-
     const response = yield call(registerUser, body);
     if (response.status === 200 && !response.hasErrors) {
       yield put(actions.auth.login({ username: body.username, password: body.password }));
@@ -40,7 +38,6 @@ function* callRegisterAPI(action: any): any {
 function* callLogOutActions(): any {
   yield put(actions.user.deleteUserInfo());
 }
-
 
 export function* actionAuthWatcher() {
   yield takeLatest('auth/login', callLoginAPI);

@@ -49,7 +49,7 @@ export const BottomAccountOptions = (props: {
           ) : (
             <>
               <Button className={className.button}>
-                <Link to="/user-info" state={"Thông tin cá nhân"} className="items-center">
+                <Link to="/user-info" state={'Thông tin cá nhân'} className="items-center">
                   <BiIcons.BiUser className={className.icon} size={20} />
                   <span className="text-sm">Thông tin cá nhân</span>
                 </Link>

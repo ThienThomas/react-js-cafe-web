@@ -28,12 +28,16 @@ export interface IIUserRegisterResult extends IUserRegisterParams {
   id: string;
 }
 
-export const registerUser = (data: IUserRegisterParams) => {
-  return AxiosServicePost(EndpointConfig.auth.REGISTER, data, false);
+export const registerUser = async (data: IUserRegisterParams) => {
+  return await AxiosServicePost(EndpointConfig.auth.REGISTER, data, undefined, false);
 };
 
-export const loginUser = (data: any) => {
-  return AxiosServicePost(EndpointConfig.auth.LOGIN, data, false);
+export const loginUser = async (data: any) => {
+  return await AxiosServicePost(EndpointConfig.auth.LOGIN, data, undefined, false);
+};
+
+export const resetPassword = async (data: any) => {
+  return await AxiosServicePost(EndpointConfig.auth.RESET, undefined, data, false);
 };
 
 export const forgotPassword = (data: any) => {

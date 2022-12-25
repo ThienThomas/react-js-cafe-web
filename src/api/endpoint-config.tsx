@@ -9,7 +9,8 @@ export const EndpointConfig = {
     FORGOT_PASSWORD: '/auth/forgotPassword',
     UPDATE: '/UsersManagement/UpdateUser',
     FILE_UPLOAD: '/UsersManagement/saveUserAvatar',
-    CHANGE_PASSWORD: '/auth/changePassword'
+    CHANGE_PASSWORD: '/auth/changePassword',
+    RESET: '/auth/resetPassword'
   },
   product: {
     GET_ALL_PRODUCTS: '/api/ProductsManagement/common/GetAllProducts',

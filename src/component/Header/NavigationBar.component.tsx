@@ -26,7 +26,7 @@ const NavigationBar = (props: { setBottomMenuVisible: any }) => {
         </Link>
       </li>
       <li className={twStyle.listElement}>
-        <Link to="/list-store">Cửa hàng</Link>
+        <Link to="/store">Cửa hàng</Link>
       </li>
     </ul>
   );

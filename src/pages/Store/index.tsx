@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { city, loadProvinces } from '../../constant/temp-data';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import hcm1 from '../../assets/images/hcm1.jpeg';
 import hcm11 from '../../assets/images/hcm11.jpeg';
 import hcm111 from '../../assets/images/hcm111.jpeg';
+import { city, loadProvinces } from '../../constant/temp-data';
 
-import hcm2 from '../../assets/images/hcm2.jpeg';
 import { BiIcons } from '../../assets/icons';
+import hcm2 from '../../assets/images/hcm2.jpeg';
 
-const ListStore = () => {
+const Store = () => {
   let [dataProvinces, setDataProvinces] = useState([]);
 
   useEffect(() => {
@@ -253,4 +253,4 @@ const ListStore = () => {
   );
 };
 
-export default ListStore;
+export default Store;

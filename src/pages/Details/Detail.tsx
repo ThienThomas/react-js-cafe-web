@@ -79,12 +79,12 @@ const ProductDetail = () => {
               suffix={' VND'}
             />
           </div>
-          <div className="bg-[#E57905] flex rounded-md items-center w-full h-[46px] justify-center py-3">
+          <Link
+            to="/cart"
+            className="bg-[#E57905] flex rounded-md items-center w-full h-[46px] justify-center py-3">
             <BiIcons.BiShoppingBag color={'#fff'} className="w-[21px] h-[21px] mr-2" />
-            <a href="" className="text-white font-semibold">
-              Đặt giao tận nơi
-            </a>
-          </div>
+            Đặt giao tận nơi
+          </Link>
           <div className="mt-5">
             <div className="mb-3">Chọn size (bắt buộc)</div>
             <div className="flex gap-4">

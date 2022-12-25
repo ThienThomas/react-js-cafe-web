@@ -1,15 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Footer from './component/Footer/Footer.component';
-import Header from './component/Header/Header.component';
 import DefaultLayout from './component/Layout/DefaultLayout';
 import { useStartUp } from './hooks/start-up.hook';
 import Coupon from './pages/Coupon/Coupon.page';
 import ProductDetail from './pages/Details/Detail';
 import Forgot from './pages/Forgot/Forgot';
 import { Home } from './pages/Home';
-import ListStore from './pages/ListStore';
 import { Menu } from './pages/Menu';
 import Order from './pages/Order/Order';
+import Cart from './pages/Profile/Cart';
+import Store from './pages/Store';
 import ChangePass from './pages/UserInfo/ChangePass';
 import Info from './pages/UserInfo/Info';
 import UserInfo from './pages/UserInfo/UserInfo';
@@ -73,7 +72,7 @@ function App() {
           path="/list-store"
           element={
             <DefaultLayout>
-              <ListStore />
+              <Store />
             </DefaultLayout>
           }></Route>
         <Route
@@ -84,10 +83,24 @@ function App() {
             </DefaultLayout>
           }></Route>
 
-        <Route path="/user-info" element={<DefaultLayout><UserInfo /></DefaultLayout>}>
+        <Route
+          path="/user-info"
+          element={
+            <DefaultLayout>
+              <UserInfo />
+            </DefaultLayout>
+          }>
           <Route index element={<Info />} />
           <Route path="change-password" element={<ChangePass />} />
         </Route>
+        <Route
+          path="/cart"
+          element={
+            <DefaultLayout>
+              <Cart />
+            </DefaultLayout>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

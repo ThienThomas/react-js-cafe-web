@@ -34,7 +34,13 @@
     overflow: hidden;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
+    margin-bottom: 20px;
   }
+
+  /* .modalHeader h5 {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd9d9;
+  } */
   
   .heading {
     color: #2c3e50;
@@ -45,7 +51,8 @@
   }
   
   .modalContent {
-    padding: 30px 70px 90px;
+    border-top: 1px solid #ddd9d9;
+    padding: 40px 20px 20px;
     font-size: 14px;
     color: #2c3e50;
     text-align: center;
@@ -118,3 +125,12 @@
     transform: none;
     background: whitesmoke;
   }
+
+  form {
+    display: inline-block;
+}
+
+input[type="radio"] {
+  width: 20px;
+  height: 20px;
+}

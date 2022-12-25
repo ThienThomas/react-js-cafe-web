@@ -9,13 +9,13 @@ import { getBaseUrl } from './endpoint-config';
 const headerConfig = () => {
   return {
     Accept: '*/*',
+    'Access-Control-Allow-Headers': '*',
     'Content-Type': 'application/json'
   };
 };
 const headerConfigWithAuthRequired = () => {
   return {
-    Accept: '*/*',
-    'Content-Type': 'application/json',
+    ...headerConfig(),
     Authorization: 'Bearer ' + getAccessToken()
   };
 };
@@ -26,23 +26,28 @@ const configHeader = (authRequired: boolean) => {
 
 export const AxiosServiceGet = async (url: string, params?: any, authRequired = false) => {
   try {
-    return await axios.get(`${getBaseUrl()}${url}`, {
+    return await axios({
+      method: 'get',
+      headers: configHeader(authRequired),
       params: params,
-      headers: configHeader(authRequired)
+      url: getBaseUrl() + url
     });
   } catch (e) {
     console.log(e);
-    return {};
   }
 };
 
-export const AxiosServicePost = async (url: string, data?: any, authRequired = false) => {
+export const AxiosServicePost = async (
+  url: string,
+  data?: any,
+  params?: any,
+  authRequired = false
+) => {
   try {
     return await axios.post(`${getBaseUrl()}${url}`, {
       ...data
     });
   } catch (e) {
     console.log(e);
-    return {};
   }
 };
