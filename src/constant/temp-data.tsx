@@ -14,38 +14,161 @@ export const tempSlider = [
   }
 ];
 
+import hcm1 from '../assets/images/hcm1.jpeg';
+import hcm11 from '../assets/images/hcm11.jpeg';
+import hcm111 from '../assets/images/hcm111.jpeg';
+
+import hcm2 from '../assets/images/hcm2.jpeg';
+
 export const city = [
   {
+    id: 'city1',
     name: 'Tp Hồ Chí Minh',
-    count: 72
+    count: 72,
+    provinces: [
+      {
+        id: 'city1_p1',
+        name: 'Quận 1',
+        address: [
+          {
+            name: '145 Nguyen Thai Hoc, Quan 1',
+            map: 'Link google map',
+            images: {
+              src: hcm1
+            }
+          },
+          {
+            name: '145 Nguyen Thai Hoc, Quan 1',
+            map: 'Link google map',
+            images: {
+              src: hcm1
+            }
+          },
+          {
+            name: '145 Nguyen Thai Hoc, Quan 1',
+            map: 'Link google map',
+            images: {
+              src: hcm11
+            }
+          }
+        ]
+      },
+      {
+        id: 'city1_p2',
+        name: 'Quận 2',
+        address: [
+          {
+            name: '145 Nguyen Thai Hoc, Quan 2',
+            map: 'Link google map',
+            images: {
+              src: hcm111
+            }
+          },
+          {
+            name: '145 Nguyen Thai Hoc, Quan 2',
+            map: 'Link google map',
+            images: {
+              src: hcm1
+            }
+          },
+          {
+            name: '145 Nguyen Thai Hoc, Quan 2',
+            map: 'Link google map',
+            images: {
+              src: hcm2
+            }
+          }
+        ]
+      },
+      {
+        id: 'city1_p3',
+        name: 'Quận 3',
+        address: [
+          {
+            name: '145 Nguyen Thai Hoc, Quan 3',
+            map: 'Link google map',
+            images: {
+              src: hcm1
+            }
+          },
+          {
+            name: '145 Nguyen Thai Hoc, Quan 3',
+            map: 'Link google map',
+            images: {
+              src: hcm11
+            }
+          },
+          {
+            name: '145 Nguyen Thai Hoc, Quan 3',
+            map: 'Link google map',
+            images: {
+              src: hcm1
+            }
+          }
+        ]
+      }
+    ]
   },
   {
+    id: 'city2',
     name: 'Hà Nội',
-    count: 41
-  },
-  {
-    name: 'Hải Phòng',
-    count: 9
-  },
-  {
-    name: 'Đà Nẵng',
-    count: 5
-  },
-  {
-    name: 'Tây Ninh',
-    count: 2
-  },
-  {
-    name: 'Nha Trang',
-    count: 72
-  },
-  {
-    name: 'Nghệ An',
-    count: 4
-  },
-  {
-    name: 'Huế',
-    count: 1
+    count: 41,
+    provinces: [
+      {
+        id: 'city2_p1',
+        name: 'Quận 1',
+        address: [
+          {
+            name: '145 Nguyen Thai Hoc, Quan 1, HN',
+            map: 'Link google map',
+            images: {
+              src: hcm2
+            }
+          },
+          {
+            name: '145 Nguyen Thai Hoc, Quan 1, HN',
+            map: 'Link google map',
+            images: {
+              src: hcm111
+            }
+          },
+          {
+            name: '145 Nguyen Thai Hoc, Quan 1, HN',
+            map: 'Link google map',
+            images: {
+              src: hcm111
+            }
+          }
+        ]
+      },
+      {
+        id: 'city2_p2',
+        name: 'Quận 2',
+        address: [
+          {
+            name: '145 Nguyen Thai Hoc, Quan 2, HN',
+            map: 'Link google map',
+            images: {
+              src: hcm111
+            }
+          },
+          {
+            name: '145 Nguyen Thai Hoc, Quan 2, HN',
+            map: 'Link google map',
+            images: {
+              src: hcm111
+            }
+          },
+          {
+            name: '145 Nguyen Thai Hoc, Quan 2, HN',
+            map: 'Link google map',
+            images: {
+              src: hcm111
+            }
+          }
+        ]
+      }
+    ]
   }
 ];
 

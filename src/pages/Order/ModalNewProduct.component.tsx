@@ -13,10 +13,10 @@ const ModalNewProduct = (props: { setIsOpen: any }) => {
 
   const [qtyTopping, setQtyTopping] = useState<number>(0);
   const increaseQuantityTopping = () => {
-    setQtyTopping(qty + 1);
+    setQtyTopping(qtyTopping + 1);
   };
   const decreaseQuantityTopping = () => {
-    setQtyTopping(qty - 1);
+    setQtyTopping(qtyTopping - 1);
   };
 
   return (
@@ -57,7 +57,7 @@ const ModalNewProduct = (props: { setIsOpen: any }) => {
                       </button>
                     )}
                     <input
-                      min="0"
+                      min={0}
                       type="number"
                       value={qty}
                       className="w-[30px] outline-none text-center"

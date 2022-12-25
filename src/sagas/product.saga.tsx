@@ -11,7 +11,6 @@ export function* callGetAllProductAPI(): any {
   try {
     const response = yield call(getAllProductAPI);
     if (response.status === 200 && !response.hasErrors) {
-      //console.log(response);
       const productList: ProductType[] = response.data.content;
       productList.forEach(
         (item) =>
@@ -37,7 +36,6 @@ export function* callGetAllProductListAPI(): any {
   try {
     const response = yield call(getAllProductGroupAPI);
     if (response.status === 200 && !response.hasErrors) {
-      console.log(response);
       const productGroup: ProductGroupType[] = response.data.content;
       productGroup.forEach(
         (item) =>

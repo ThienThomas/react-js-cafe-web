@@ -2,8 +2,12 @@ import { useState } from 'react';
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
 import { BiIcons, RiIcons } from '../../assets/icons';
+import Modal from './Modal.component';
+import ModalEdit from './ModalEdit.component';
 
 const Cart = () => {
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [isOpenCoupon, setIsOpenCoupon] = useState(false);
   const [qty, setQty] = useState<number>(1);
   const increaseQuantity = () => {
     setQty(qty + 1);
@@ -85,7 +89,10 @@ const Cart = () => {
             <div className="shadow-lg p-[10px_15px_25px] w-full bg-white rounded-xl border">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-[#808089] text-[17px]">Giao tới</p>
-                <p className="text-blue-500">Thay đổi</p>
+                <p onClick={() => setIsOpenEdit(true)} className="text-blue-500 cursor-pointer">
+                  Thay đổi
+                </p>
+                {isOpenEdit && <ModalEdit setIsOpen={setIsOpenEdit} />}
               </div>
               <div className="flex items-center mb-3">
                 <p className="font-bold pr-3 border-r-2 border-solid border-slate-300">
@@ -104,13 +111,17 @@ const Cart = () => {
               <div className="flex items-center justify-between mb-6">
                 <div className="font-bold text-sm">Khuyến Mãi</div>
                 <div className="flex items-center gap-1">
-                  <p className="text-[#808089] text-sm ">Có thể chọn 2</p>
                   <BiIcons.BiHelpCircle size={20} color={'#808089'} />
                 </div>
               </div>
               <div className="flex items-center">
                 <RiIcons.RiCoupon3Line size={20} color={'#0D74E4'} />
-                <p className="text-[#0D74E4] text-sm ml-1">Chọn hoặc nhập mã Khuyến Mãi</p>
+                <p
+                  onClick={() => setIsOpenCoupon(true)}
+                  className="text-[#0D74E4] text-sm ml-1 cursor-pointer">
+                  Chọn hoặc nhập mã Khuyến Mãi
+                </p>
+                {isOpenCoupon && <Modal setIsOpen={setIsOpenCoupon} />}
               </div>
             </div>
 
