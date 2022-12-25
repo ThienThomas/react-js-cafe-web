@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const className = {
   container: 'container mx-auto p-10 h-screen',
@@ -30,9 +29,9 @@ const ForgotPassword = () => {
           type="email"
           className={className.input}
         />
-        <Link className={className.button} to="/reset-password">
+        <button className={className.button} type="submit">
           Đặt lại mật khẩu
-        </Link>
+        </button>
       </form>
     </div>
   );
