@@ -5,12 +5,19 @@ export const EndpointConfig = {
   auth: {
     VALIDATE_TOKEN: '/auth/validateToken', // validate a jwt token
     REGISTER: '/auth/register', // Register a new customer account
-    LOGIN: '/auth/login'
+    LOGIN: '/auth/login',
+    FORGOT_PASSWORD: '/auth/forgotPassword',
+    UPDATE: '/UsersManagement/UpdateUser',
+    FILE_UPLOAD: '/UsersManagement/saveUserAvatar',
+    CHANGE_PASSWORD: '/auth/changePassword'
   },
   product: {
     GET_ALL_PRODUCTS: '/api/ProductsManagement/common/GetAllProducts',
     GET_ALL_PRODUCTS_WITH_GROUP: '/api/ProductsManagement/common/GetAllProductsWithProductGroup',
     GET_ALL_PRODUCT_GROUP: '/api/ProductGroupManagement/common/GetAllProductGroups'
+  }, 
+  file: {
+
   }
 };
 

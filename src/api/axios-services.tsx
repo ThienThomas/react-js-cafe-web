@@ -3,6 +3,9 @@
 import axios from 'axios';
 import { getAccessToken } from '../utils/redux-utils';
 import { getBaseUrl } from './endpoint-config';
+
+
+
 const headerConfig = () => {
   return {
     Accept: '*/*',
@@ -36,8 +39,7 @@ export const AxiosServiceGet = async (url: string, params?: any, authRequired = 
 export const AxiosServicePost = async (url: string, data?: any, authRequired = false) => {
   try {
     return await axios.post(`${getBaseUrl()}${url}`, {
-      data: JSON.stringify(data),
-      headerConfig: configHeader(authRequired)
+      ...data
     });
   } catch (e) {
     console.log(e);

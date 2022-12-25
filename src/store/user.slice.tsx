@@ -33,6 +33,7 @@ const userSlice = createSlice({
       state.phone = payload.payload.phone;
       state.gender = payload.payload.gender;
     },
+    
     deleteUserInfo(state) {
       state.id = '';
       state.username = '';

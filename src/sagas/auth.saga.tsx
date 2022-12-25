@@ -36,9 +36,11 @@ function* callRegisterAPI(action: any): any {
     yield put(actions.auth.registerFailed({ errorLogin: JSON.stringify(e) }));
   }
 }
+
 function* callLogOutActions(): any {
   yield put(actions.user.deleteUserInfo());
 }
+
 
 export function* actionAuthWatcher() {
   yield takeLatest('auth/login', callLoginAPI);

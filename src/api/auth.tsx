@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 
+import axios from 'axios';
 import { AxiosServicePost } from './axios-services';
-import { EndpointConfig } from './endpoint-config';
+import { EndpointConfig, getBaseUrl } from './endpoint-config';
 
 export enum EGender {
   MALE = 'MALE',
@@ -34,3 +35,20 @@ export const registerUser = (data: IUserRegisterParams) => {
 export const loginUser = (data: any) => {
   return AxiosServicePost(EndpointConfig.auth.LOGIN, data, false);
 };
+
+export const forgotPassword = (data: any) => {
+  return AxiosServicePost(`${EndpointConfig.auth.FORGOT_PASSWORD}?email=${data?.email}&feHomePage=https://spectacular-clafoutis-af79ec.netlify.app`, {...data, feHomePage: 'https://spectacular-clafoutis-af79ec.netlify.app/'})
+}
+
+export const updateUser = (data: any) => {
+  return AxiosServicePost(EndpointConfig.auth.UPDATE, data)
+}
+
+export const uploadAvatar = (data: any, username: string) => {
+  return axios.post(`${getBaseUrl()}${EndpointConfig.auth.FILE_UPLOAD}?username=${username}`, data)
+}
+
+
+export const changePassword = (token: string, data: any) => {
+  return axios.post(`${getBaseUrl()}${EndpointConfig.auth.CHANGE_PASSWORD}?token=${token}&oldPassword=${data?.oldPassword}&newPassword=${data?.newPassword}`, data)
+}

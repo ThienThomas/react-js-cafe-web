@@ -70,6 +70,7 @@ export const LoginForm = (props: { visible: boolean; onClose: any }) => {
       );
     // console.log({ name, username, password, email, phone, gender, birth, avatar: 'none' });
   };
+
   const handleSubmitForm = (event: any) => {
     event && event.preventDefault();
     isLogin ? loginUser() : registerUser();
@@ -191,7 +192,7 @@ export const LoginForm = (props: { visible: boolean; onClose: any }) => {
             </div>
           )}
           <button className={styles.button} type="submit">
-            Đăng nhập
+            {isLogin ? "Đăng Nhập" : "Đăng ký"}
           </button>
           <p className="text-sm text-center my-2">
             {isLogin ? 'Chưa có tài khoản ? ' : 'Đã có tài khoản ? '}

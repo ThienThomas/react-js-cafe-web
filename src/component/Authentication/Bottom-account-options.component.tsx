@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { BiIcons } from '../../assets/icons';
 import { actions } from '../../store';
 import Button from '../Button.component';
@@ -48,10 +49,10 @@ export const BottomAccountOptions = (props: {
           ) : (
             <>
               <Button className={className.button}>
-                <div className="items-center">
+                <Link to="/user-info" state={"Thông tin cá nhân"} className="items-center">
                   <BiIcons.BiUser className={className.icon} size={20} />
                   <span className="text-sm">Thông tin cá nhân</span>
-                </div>
+                </Link>
               </Button>
               <Button className={className.button} onClick={callLogout}>
                 <div className="items-center">
