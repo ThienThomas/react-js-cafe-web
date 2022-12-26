@@ -27,7 +27,7 @@ const About = () => {
           </Link>
         </li>
         <li>
-          <Link to="/store">
+          <Link to="/list-store">
             <span className="text-sm">Cửa hàng</span>
           </Link>
         </li>
