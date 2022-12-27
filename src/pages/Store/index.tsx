@@ -28,7 +28,7 @@ const ListStore = () => {
     <>
       <div className="bg-bgStore p-[10px_20px] h-[205px] flex items-center justify-center">
         <p className="text-white text-3xl font-semibold">
-          Hệ thống ? cửa hàng The Coffee House toàn quốc
+          Hệ thống cửa hàng The Coffee House toàn quốc
         </p>
       </div>
       <div className="md:max-w-[1200px] p-[20px_10px] m-auto flex">
@@ -50,7 +50,7 @@ const ListStore = () => {
         </div>
         <div className="flex-1 pl-7">
           <p className="text-[20px] font-semibold mb-5">
-            Khám phá 72 cửa hàng của chúng tôi ở Tp Hồ Chí Minh
+            Khám phá {data.count} cửa hàng của chúng tôi ở {data.name}
           </p>
           <select
             onChange={handleChangeProvinces}
@@ -67,15 +67,8 @@ const ListStore = () => {
                 <div key={index} className="md:max-w-[430px]">
                   <img src={i.images.src} alt="" className="w-[430px] h-[236px]" />
                   <p className="text-xl font-semibold my-2">{i.name}</p>
-                  <div className="w-full h-8 flex items-center justify-center py-2 bg-[#FFF7E6] text-[#B3DDCA] hover:bg-white hover:text-[#D46B08] hover:border border-solid hover:border-[#D46B08] rounded-md">
-                    {i.map}
-                  </div>
-                  <div className="flex my-2 items-center gap-3 border-b border-solid border-slate-300 pb-3">
-                    <p className="text-[18px] font-semibold">Chia sẻ trên: </p>
-                    <BiIcons.BiLink size={20} />
-                    <BiIcons.BiMessage size={20} />
-                  </div>
-                  <p className="text-sm mb-2">{i.name}</p>
+
+                  <p className="text-sm mb-2">{i.add}</p>
                   <p className="text-sm mb-2">7:00 - 22:00</p>
                   <div className="flex gap-3 flex-wrap">
                     <div className="flex gap-2 items-center text-sm">
