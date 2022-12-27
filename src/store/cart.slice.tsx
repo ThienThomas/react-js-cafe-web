@@ -26,7 +26,7 @@ const cartSlice = createSlice({
             ? { ...product, totalPrice:  Number(product?.quantity) + 1 * Number(product.price)  , quantity: Number(product?.quantity) + 1}
             : product
         );
-      else state.productList.push({ ...action.payload, quantity: 1 });
+      else state.productList.push({ ...action.payload, quantity: 1, totalPrice: action.payload.price * 1 });
       setTotalPrice(state);
     },
     inCreaseQty(state, action) {

@@ -2,13 +2,12 @@
 
 import { store } from '../store';
 import { ProductGroupType } from '../store/product.slice';
-import useUserSlice from '../hooks/useUserSlice';
 
 export const getAccessToken = (): string => {
 
   const rootPersist = localStorage.getItem('persist:root')
   if(rootPersist) {
-    return JSON.parse(JSON.parse(rootPersist as string)?.auth)?.accessToken || ''
+    return JSON.parse(JSON.parse(rootPersist || '')?.auth)?.accessToken || ''
   }
   return ``
 };

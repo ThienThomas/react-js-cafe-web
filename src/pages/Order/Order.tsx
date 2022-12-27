@@ -16,10 +16,6 @@ import { createOrder } from '../../api/product';
 
 const paymentMethods = [
   {
-    name: 'Tiền mặt',
-    image: money
-  },
-  {
     name: 'Banking',
     image: bank
   }
@@ -27,18 +23,18 @@ const paymentMethods = [
 
 const bankcode = [
   {
-    bank_code: 'ACB',
-    bank_name: 'Ngân hàng ACB',
-    logo_link: 'https://sandbox.vnpayment.vn/images/bank/acb_logo.png',
-    bank_type: 1,
-    display_order: 7
+    bank_code: 'VNPAYQR',
+    bank_name: 'VNPAY QR',
+    logo_link: 'https://sandbox.vnpayment.vn/images/bank/vnpayqr_logo.png',
+    bank_type: 5,
+    display_order: 22
   },
   {
-    bank_code: 'VPBANK',
-    bank_name: 'Ngân hàng VPBank',
-    logo_link: 'https://sandbox.vnpayment.vn/images/bank/vpbank_logo.png',
+    bank_code: 'NCB',
+    bank_name: 'Ngân hàng NCB',
+    logo_link: 'https://sandbox.vnpayment.vn/images/bank/ncb_logo.png',
     bank_type: 1,
-    display_order: 8
+    display_order: 12
   }
 ];
 
@@ -71,7 +67,6 @@ const Order = () => {
       setValue('customerName', user?.name);
       setValue('phoneNumber', user?.phone);
     } else nav('/user-info/cart');
-
   }, [user]);
 
   const handleOrder = async (data: any) => {
@@ -255,7 +250,6 @@ const Order = () => {
                 </Link>
               </div>
 
-
               <div className="flow-root">
                 <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
                   {productsOrder.map((order: any, i: number) => (
@@ -309,12 +303,11 @@ const Order = () => {
                   ) : (
                     <>
                       {' '}
-                      <div >Miễn phí giao hàng đơn trên 50K</div>
-                      <div >20.000 đ</div>
+                      <div>Miễn phí giao hàng đơn trên 50K</div>
+                      <div>20.000 đ</div>
                     </>
                   )}
                 </div>
-
               </div>
             </div>
             <div className="bg-[#fa8c16] p-[10px_20px] rounded-b-3xl shadow-[0px_8px_30px_#DEE6F1]">
@@ -331,7 +324,11 @@ const Order = () => {
               </div>
             </div>
 
-            <div onClick={() => confirm("Bạn có chắc chắn muốn xóa đơn hàng ?") ? nav("/", {replace: true}) : null} className="text-[#fa8c16] flex items-end justify-center mt-5 cursor-pointer">
+            <div
+              onClick={() =>
+                confirm('Bạn có chắc chắn muốn xóa đơn hàng ?') ? nav('/', { replace: true }) : null
+              }
+              className="text-[#fa8c16] flex items-end justify-center mt-5 cursor-pointer">
               <BiIcons.BiRecycle color={'#fa8c16'} size={30} />
               Xoá đơn hàng
             </div>

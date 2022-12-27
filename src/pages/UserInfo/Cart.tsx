@@ -1,11 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { getListBank } from '../../api/product';
+import { useNavigate } from 'react-router-dom';
 import { BiIcons, RiIcons } from '../../assets/icons';
-import Input from '../../component/Common/Input';
 import Message from '../../component/Common/Message';
 import useCartSlice from '../../hooks/useCarSlice';
 import useUserSlice from '../../hooks/useUserSlice';
@@ -51,20 +48,24 @@ const Cart = () => {
 
   const nav = useNavigate();
 
+    console.log(    productList      )
+
   const handlePayment = (data: any) => {
     if (productList?.length > 0) {
       const newProductList = productList.map(
-        ({ totalPrice, quantity, productGroup, ...rest }: any) => ({
+        ({ totalPrice, quantity, productGroup, size, topping, ...rest }: any) => ({
           totalPrice,
           quantity,
-          note: '',
-          size: '',
-          topping: [],
+          note: data.node,
+          size,
+          topping,
           product: {
             ...rest
           }
         })
       );
+
+
       nav('/order', {
         state: {
           ...data,
@@ -84,7 +85,7 @@ const Cart = () => {
     <div className="flex w-full">
       {openDiscount && (
         <div className="fixed inset-0 bg-black/30 z-[9999999999999999999999999]">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute top-1/2 left-1/2 z-[9999999999999999999999999] -translate-x-1/2 -translate-y-1/2">
             <DiscountBox
               setOpenDiscount={setOpenDiscount}
               totalPrice={totalPrice}
@@ -96,7 +97,7 @@ const Cart = () => {
 
       <div className=" w-full">
         <div className="flex gap-8">
-          <div className="overflow-x-auto relative shadow-md sm:rounded-lg w-9/12">
+          <div className="overflow-x-auto  shadow-md sm:rounded-lg w-9/12">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -118,7 +119,7 @@ const Cart = () => {
                 </tr>
               </thead>
               <tbody>
-                {productList.map((product: any) => (
+                {productList?.map((product: any) => (
                   <tr
                     key={product.id}
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -191,7 +192,7 @@ const Cart = () => {
                 ))}
               </tbody>
             </table>
-            <button onClick={() => clearCart()} className="mt-10 ml-10  text-white uppercase p-4 bg-clrOrange/90 focus:bg-clrOrange focus:ring-1 focus:ring-clrOrange hover:bg-clrOrange  rounded-lg">Xóa giỏ Hàng</button>
+            <button onClick={() => {clearCart(), setDiscount(null)}} className="mt-10 ml-10  text-white uppercase p-4 bg-clrOrange/90 focus:bg-clrOrange focus:ring-1 focus:ring-clrOrange hover:bg-clrOrange  rounded-lg">Xóa giỏ Hàng</button>
           </div>
 
           <form onSubmit={handleSubmit(handlePayment)} className="grid flex-[1] gap-6 w-3/12">

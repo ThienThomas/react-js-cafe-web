@@ -15,6 +15,7 @@ import Info from './pages/UserInfo/Info';
 import UserInfo from './pages/UserInfo/UserInfo';
 import PaymentProcess from './pages/PaymentProcess';
 import './App.css'
+import OrderHistory from './pages/UserInfo/OrderHistory';
 
 function App() {
   useStartUp();
@@ -110,6 +111,7 @@ function App() {
           <Route index element={<Info />} />
           <Route path="change-password" element={<ChangePass />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="order-history" element={<OrderHistory />} />
         </Route>
       </Routes>
     </BrowserRouter>

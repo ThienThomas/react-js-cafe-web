@@ -18,7 +18,7 @@ const styles = {
 
 const ProductDetail = () => {
   let { product } = useParams();
-  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedSize, setSelectedSize] = useState(productSize[0].name);
   const [machiato, setMachiato] = useState('');
   const [expresso, setExpresso] = useState('');
   const [caffe, setCaffee] = useState('');
@@ -61,7 +61,8 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if(isLoggedIn) {
-      dispatch(actions.cart.addToCart(productData))
+      dispatch(actions.cart.addToCart({...productData, size: selectedSize,  topping: selectedTopping}))
+      console.log(selectedSize, selectedTopping)
       nav('/user-info/cart')
     }else 
       setToggleLogin(true)
@@ -104,103 +105,111 @@ const ProductDetail = () => {
             <BiIcons.BiShoppingBag color={'#fff'} className="w-[21px] h-[21px] mr-2 " />
             Đặt giao tận nơi
           </button>
-          <div className="mt-5">
-            <div className="mb-3">Chọn size (bắt buộc)</div>
-            <div className="flex gap-4">
-              {productSize.map((item) => (
-                <Option
-                  sizeImg={25}
-                  text={item.name}
-                  price={item.value}
-                  key={item.id}
-                  onClick={() => setSelectedSize(item?.name)}
-                  isSelected={item.name === selectedSize}
-                  showIcon={true}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="mt-5">
-            <div className="mb-3">Topping</div>
-            <div className="flex gap-4 flex-wrap">
-              <Option
-                text={productTopping[0]?.name}
-                price={productTopping[0]?.value}
-                key={productTopping[0]?.id}
-                isSelected={productTopping[0]?.name === machiato}
-                onClick={() => {
-                  if (machiato === '') {
-                    setMachiato(productTopping[0]?.name);
-                    addToppingList(productTopping[0]);
-                  } else {
-                    setMachiato('');
-                    removeToppingList(productTopping[0]);
-                  }
-                }}
-              />
-              <Option
-                text={productTopping[1].name}
-                price={productTopping[1].value}
-                key={productTopping[1].id}
-                isSelected={productTopping[1].name === expresso}
-                onClick={() => {
-                  if (expresso === '') {
-                    setExpresso(productTopping[1].name);
-                    addToppingList(productTopping[1]);
-                  } else {
-                    setExpresso('');
-                    removeToppingList(productTopping[1]);
-                  }
-                }}
-              />
-              <Option
-                text={productTopping[2].name}
-                price={productTopping[2].value}
-                key={productTopping[2].id}
-                isSelected={productTopping[2].name === caffe}
-                onClick={() => {
-                  if (caffe === '') {
-                    setCaffee(productTopping[2].name);
-                    addToppingList(productTopping[2]);
-                  } else {
-                    setCaffee('');
-                    removeToppingList(productTopping[2]);
-                  }
-                }}
-              />
-              <Option
-                text={productTopping[3].name}
-                price={productTopping[3].value}
-                key={productTopping[3].id}
-                isSelected={productTopping[3].name === whiteBubble}
-                onClick={() => {
-                  if (whiteBubble === '') {
-                    setWhiteBubble(productTopping[3].name);
-                    addToppingList(productTopping[3]);
-                  } else {
-                    setWhiteBubble('');
-                    removeToppingList(productTopping[3]);
-                  }
-                }}
-              />
+          {productData?.productGroup.name !== 'Bánh mặn' &&
+            productData?.productGroup.name !== 'Snack' &&
+            productData?.productGroup.name !== 'Thưởng thức tại nhà' &&
+            productData?.productGroup.name !== 'Cà phê tại nhà' &&
+            productData?.productGroup.name !== 'Bánh ngọt' && (
+              <>
+                <div className="mt-5">
+                  <div className="mb-3">Chọn size (bắt buộc)</div>
+                  <div className="flex gap-4">
+                    {productSize.map((item) => (
+                      <Option
+                        sizeImg={25}
+                        text={item.name}
+                        price={item.value}
+                        key={item.id}
+                        onClick={() => setSelectedSize(item.name)}
+                        isSelected={item.name === selectedSize}
+                        showIcon={true}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-5">
+                  <div className="mb-3">Topping</div>
+                  <div className="flex gap-4 flex-wrap">
+                    <Option
+                      text={productTopping[0].name}
+                      price={productTopping[0].value}
+                      key={productTopping[0].id}
+                      isSelected={productTopping[0].name === machiato}
+                      onClick={() => {
+                        if (machiato === '') {
+                          setMachiato(productTopping[0].name);
+                          addToppingList(productTopping[0]);
+                        } else {
+                          setMachiato('');
+                          removeToppingList(productTopping[0]);
+                        }
+                      }}
+                    />
+                    <Option
+                      text={productTopping[1].name}
+                      price={productTopping[1].value}
+                      key={productTopping[1].id}
+                      isSelected={productTopping[1].name === expresso}
+                      onClick={() => {
+                        if (expresso === '') {
+                          setExpresso(productTopping[1].name);
+                          addToppingList(productTopping[1]);
+                        } else {
+                          setExpresso('');
+                          removeToppingList(productTopping[1]);
+                        }
+                      }}
+                    />
+                    <Option
+                      text={productTopping[2].name}
+                      price={productTopping[2].value}
+                      key={productTopping[2].id}
+                      isSelected={productTopping[2].name === caffe}
+                      onClick={() => {
+                        if (caffe === '') {
+                          setCaffee(productTopping[2].name);
+                          addToppingList(productTopping[2]);
+                        } else {
+                          setCaffee('');
+                          removeToppingList(productTopping[2]);
+                        }
+                      }}
+                    />
+                    <Option
+                      text={productTopping[3].name}
+                      price={productTopping[3].value}
+                      key={productTopping[3].id}
+                      isSelected={productTopping[3].name === whiteBubble}
+                      onClick={() => {
+                        if (whiteBubble === '') {
+                          setWhiteBubble(productTopping[3].name);
+                          addToppingList(productTopping[3]);
+                        } else {
+                          setWhiteBubble('');
+                          removeToppingList(productTopping[3]);
+                        }
+                      }}
+                    />
 
-              <Option
-                text={productTopping[4].name}
-                price={productTopping[4].value}
-                key={productTopping[4].id}
-                isSelected={productTopping[4].name === blackBubble}
-                onClick={() => {
-                  if (blackBubble === '') {
-                    setBlackBubble(productTopping[4].name);
-                    addToppingList(productTopping[4]);
-                  } else {
-                    setBlackBubble('');
-                    removeToppingList(productTopping[4]);
-                  }
-                }}
-              />
-            </div>
-          </div>
+                    <Option
+                      text={productTopping[4].name}
+                      price={productTopping[4].value}
+                      key={productTopping[4].id}
+                      isSelected={productTopping[4].name === blackBubble}
+                      onClick={() => {
+                        if (blackBubble === '') {
+                          setBlackBubble(productTopping[4].name);
+                          addToppingList(productTopping[4]);
+                        } else {
+                          setBlackBubble('');
+                          removeToppingList(productTopping[4]);
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
         </div>
       </div>
 

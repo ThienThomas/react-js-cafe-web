@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { RiUser3Line, RiShieldKeyholeLine, RiArrowDropDownLine } from 'react-icons/ri';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { RiArrowDropDownLine, RiShieldKeyholeLine, RiUser3Line } from 'react-icons/ri';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const data = [
   {
@@ -25,6 +25,11 @@ const data = [
     label: 'Giỏ Hàng',
     path: 'cart',
     state: 'Giỏ Hàng'
+  },
+  {
+    label: 'Lịch Sử Đặt Hàng',
+    path: 'order-history',
+    state: 'Lịch Sử Đặt Hàng'
   }
 ];
 

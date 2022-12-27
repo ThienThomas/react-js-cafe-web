@@ -25,7 +25,7 @@ export const EndpointConfig = {
   },
   order: {
     CREATE: '/api/v1/orders/create-order',
-    PAYMENT_ORDER: '/api/v1/payment/payment-order'
+    PAYMENT_ORDER: '/api/v1/payment/payment-order',
   }
 };
 

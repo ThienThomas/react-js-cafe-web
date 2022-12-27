@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { createPayment } from '../../api/product';
+import useCartSlice from '../../hooks/useCarSlice';
 
 const index = () => {
 
   const [searchParams] = useSearchParams()
 
   const nav = useNavigate()
+
+  const {actions: {clearCart}} = useCartSlice()
 
 
   const createAsncPayment = async () => {
@@ -20,6 +23,7 @@ const index = () => {
     else {
       try {
         await createPayment(newObj)
+        clearCart()
         nav("/")
       } catch (e: any) {
         
