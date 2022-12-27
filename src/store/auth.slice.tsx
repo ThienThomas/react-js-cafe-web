@@ -8,12 +8,19 @@ const initialState = {
   errorLogin: '',
   errorRegister: '',
   errorResetPassword: '',
-  resetPasswordSuccess: ''
+  resetPasswordSuccess: '',
+  toggleLogin: false,
 };
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    setToggleLogin(state, action) {
+      state.toggleLogin = action.payload
+      // console.log(action.payload)
+    },
+     
+
     login(state, payload) {},
     loginStart(state) {
       state.errorLogin = '';
@@ -21,6 +28,7 @@ const authSlice = createSlice({
       state.errorRegister = '';
     },
     loginSuccess(state, payload) {
+      console.log(payload.payload)
       state.accessToken = payload.payload.accessToken;
       state.errorLogin = '';
       state.isLoggedIn = true;

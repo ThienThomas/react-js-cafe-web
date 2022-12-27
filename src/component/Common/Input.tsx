@@ -23,7 +23,7 @@ const Input = ({ register, label, type = 'text', errors }: Props) => {
         {label}
       </label>
       {type === 'password' && (
-        <button onClick={() => setShowPass(pre => !pre)} className="absolute right-0 top-1/2 -translate-y-3/4  p-4">
+        <button type='button' onClick={() => setShowPass(pre => !pre)} className={`${showPass ? 'text-clrOrange': ''} absolute right-0 top-1/2 -translate-y-3/4  p-4`}>
           <RiEyeLine />
         </button>
       )}

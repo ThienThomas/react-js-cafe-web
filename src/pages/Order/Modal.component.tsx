@@ -21,18 +21,18 @@ const Modal = (props: { setIsOpen: any }) => {
             <AiIcons.AiOutlineClose size={15} className="" />
           </button>
           <div className={styles.modalContent}>
-            <form action="">
+            <div >
               <div className="flex items-center mb-5 gap-3 justify-between">
                 <input
                   type="text"
                   placeholder="Nhập mã khuyến mãi"
                   className="w-[70%] border border-solid rounded-xl p-[10px_20px] text-sm outline-none"
                 />
-                <button className={styles.deleteBtn} onSubmit={handleAddCoupon}>
+                <button className="p-[10px_20px]" onSubmit={handleAddCoupon}>
                   Áp dụng
                 </button>
               </div>
-            </form>
+            </div>
             <div className="flex flex-wrap gap-8 justify-center">
               <div className="flex items-center gap-8 p-[10px_20px] border border-solid md:w-[400px] shadow-lg rounded-2xl">
                 <img src={coupon1} alt="" className="w-[100px] h-[80px]" />

@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { AxiosServicePost } from './axios-services';
-import { EndpointConfig, getBaseUrl } from './endpoint-config';
+import { API, EndpointConfig, getBaseUrl } from './endpoint-config';
 
 export enum EGender {
   MALE = 'MALE',
@@ -45,7 +45,7 @@ export const forgotPassword = (data: any) => {
 }
 
 export const updateUser = (data: any) => {
-  return AxiosServicePost(EndpointConfig.auth.UPDATE, data)
+  return API.put(EndpointConfig.auth.UPDATE, data)
 }
 
 export const uploadAvatar = (data: any, username: string) => {
@@ -53,6 +53,6 @@ export const uploadAvatar = (data: any, username: string) => {
 }
 
 
-export const changePassword = (token: string, data: any) => {
-  return axios.post(`${getBaseUrl()}${EndpointConfig.auth.CHANGE_PASSWORD}?token=${token}&oldPassword=${data?.oldPassword}&newPassword=${data?.newPassword}`, data)
+export const changePassword = ( data: any) => {
+  return axios.post(`${getBaseUrl()}${EndpointConfig.auth.CHANGE_PASSWORD}`, data)
 }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FeatherIcons } from '../../assets/icons';
+import useUserSlice from '../../hooks/useUserSlice';
 import { BottomAccountOptions } from '../Authentication/Bottom-account-options.component';
 import { LoginForm } from '../Authentication/Login-form.component';
 import Button from '../Button.component';
@@ -12,12 +13,7 @@ const style = {
 const Cart = () => {
   const [bottomAccountOptionVisible, setBottomAccountOptionVisible] = useState(false);
   const [loginFormVisible, setLoginFormVisible] = useState(false);
-  const { isLoggedIn, user } = useSelector((state: any) => {
-    return {
-      isLoggedIn: state.auth.isLoggedIn,
-      user: state.user
-    };
-  });
+
   const onMouseLeave = () => {
     setBottomAccountOptionVisible(false);
   };
@@ -25,10 +21,14 @@ const Cart = () => {
     setBottomAccountOptionVisible(true);
   };
 
+  const { isLoggedIn, user, toggleLogin, setToggleLogin} = useUserSlice()
+
+
+
   return (
     <>
       <div className={style.container}>
-        <Link className={style.iconWrapper} to="/cart">
+        <Link onClick={() => setToggleLogin(true)} className={style.iconWrapper} to="/user-info/cart">
           <FeatherIcons.FiShoppingBag color={'#FC8621'} size={25} />
         </Link>
         <Button
@@ -45,11 +45,11 @@ const Cart = () => {
           visible={bottomAccountOptionVisible}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
-          setLoginFormVisible={setLoginFormVisible}
+          setLoginFormVisible={setToggleLogin}
         />
       </div>
       {!isLoggedIn && (
-        <LoginForm visible={loginFormVisible} onClose={() => setLoginFormVisible(false)} />
+        <LoginForm visible={toggleLogin} onClose={() => setToggleLogin(false)} />
       )}
     </>
   );

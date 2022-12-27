@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BiIcons } from '../../assets/icons';
 import { actions } from '../../store';
 import Button from '../Button.component';
@@ -27,10 +27,13 @@ export const BottomAccountOptions = (props: {
     };
   });
 
+  const nav = useNavigate()
+
   const callLogout = () => {
     setLoginFormVisible(false);
     onMouseLeave();
     dispatch(actions.auth.logout());
+    nav('/')
   };
   const callOpenLoginForm = () => {
     setLoginFormVisible(true);

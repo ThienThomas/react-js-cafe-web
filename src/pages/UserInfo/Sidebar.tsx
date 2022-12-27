@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RiUser3Line, RiShieldKeyholeLine, RiArrowDropDownLine } from 'react-icons/ri';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const data = [
   {
@@ -23,12 +23,17 @@ const data = [
   },
   {
     label: 'Giỏ Hàng',
-    path: '/cart'
+    path: 'cart',
+    state: 'Giỏ Hàng'
   }
 ];
 
 const Sidebar = () => {
   const [selectFeature, setSelectFeature] = useState<any[]>([]);
+
+  const local = useLocation()
+
+  const currentRoute = local.pathname.split("/")[local.pathname.split("/").length - 1]
 
   const handleSelectFeature = (index: any) => {
     const isExiting = selectFeature.some((_, i) => i === index);
@@ -36,29 +41,42 @@ const Sidebar = () => {
     else setSelectFeature((pre) => [...pre, index]);
   };
 
-
   return (
-    <div >
+    <div>
       <ul className="py-5">
         {data.map((item, i) => {
           const isHasFeature = item.features;
           return (
             <li key={i}>
-              <div className="flex items-center  px-10   justify-between text-xl py-4">
-                {item?.label}
-                {isHasFeature && (
-                  <button onClick={() => handleSelectFeature(i)} className={`text-4xl transition ${selectFeature.includes(i) ? 'rotate-180' : 'rotate-0'}`}>
-                    <RiArrowDropDownLine />
-                  </button>
-                )}
-              </div>
+              {!item.path ? (
+                <div className="flex items-center  px-10   justify-between text-xl py-4">
+                  {item?.label}
+                  {isHasFeature && (
+                    <button
+                      onClick={() => handleSelectFeature(i)}
+                      className={`text-4xl transition ${
+                        selectFeature.includes(i) ? 'rotate-180' : 'rotate-0'
+                      }`}>
+                      <RiArrowDropDownLine />
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <NavLink state={item?.state} className={({isActive}) => `flex items-center  px-10   justify-between text-xl py-4  ${isActive ? 'text-clrOrange' : ''}`} to={item?.path}>{item?.label}</NavLink>
+              )}
 
               {isHasFeature && selectFeature.includes(i) && (
                 <div className=" bg-white  px-10">
                   {item.features.map((feature, j) => (
-                    <NavLink state={feature.state} to={feature.path} className={({isActive}) => `flex items-center px-4 py-4 gap-2 ${isActive ? 'text-clrOrange' : ''}`} key={j} >
+                    <NavLink
+                      state={feature.state}
+                      to={feature.path}
+                      className={({ isActive }) =>
+                        `flex items-center px-4 py-4 gap-2 ${currentRoute === feature.path.replace("/",'') ? 'text-clrOrange' : ''}`
+                      }
+                      key={j}>
                       <span className="">{feature.icon}</span>
-                      <span >{feature.label}</span>
+                      <span>{feature.label}</span>
                     </NavLink>
                   ))}
                 </div>

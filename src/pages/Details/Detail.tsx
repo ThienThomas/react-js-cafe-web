@@ -2,10 +2,12 @@
 
 import { find } from 'lodash';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiIcons } from '../../assets/icons';
 import { productSize, productTopping } from '../../constant/type';
+import useUserSlice from '../../hooks/useUserSlice';
+import { actions } from '../../store';
 import { ProductGroupType, ProductType } from '../../store/product.slice';
 import Productions from '../Home/Production.component';
 import Option from './Detail.component';
@@ -50,6 +52,22 @@ const ProductDetail = () => {
   useEffect(() => {
     console.log(selectedTopping);
   }, [selectedTopping]);
+
+  const dispatch = useDispatch()
+
+  const {isLoggedIn, setToggleLogin} = useUserSlice()
+  
+  const nav = useNavigate()
+
+  const handleAddToCart = () => {
+    if(isLoggedIn) {
+      dispatch(actions.cart.addToCart(productData))
+      nav('/user-info/cart')
+    }else 
+      setToggleLogin(true)
+  }
+
+
   return (
     <div className={styles.container}>
       <div className="flex">
@@ -57,34 +75,35 @@ const ProductDetail = () => {
           Menu
         </Link>
         <div className="mx-1">/</div>
-        <Link to={`/menu/${productGroupId.parsedName}`} className="font-bold">
-          {productGroupId.name}
+        <Link to={`/menu/${productGroupId?.parsedName}`} className="font-bold">
+          {productGroupId?.name}
         </Link>
         <div className="mx-1">/</div>
         <Link to={`/product/${product}`} className="">
-          {productData.name}
+          {productData?.name}
         </Link>
       </div>
       <div className="flex mt-[35px]">
         <div className="flex-1">
-          <img src={productData.imgUrl} alt="Hình Sản Phẩm" className="w-[570px] h-[570px]" />
+          <img src={productData?.imgUrl} alt="Hình Sản Phẩm" className="w-[570px] h-[570px]" />
         </div>
         <div className="flex-1 pl-8">
-          <div className="text-[26px] mb-4">{productData.name}</div>
+          <div className="text-[26px] mb-4">{productData?.name}</div>
           <div className="text-[26px] mb-[18px] text-[#E57905] font-semibold flex">
             <CurrencyFormat
-              value={productData.price}
+              value={productData?.price}
               thousandSeparator={true}
               displayType={'text'}
               suffix={' VND'}
             />
           </div>
-          <Link
-            to="/cart"
-            className="bg-[#E57905] flex rounded-md items-center w-full h-[46px] justify-center py-3">
-            <BiIcons.BiShoppingBag color={'#fff'} className="w-[21px] h-[21px] mr-2" />
+          <button 
+            type="button"
+            onClick={() => handleAddToCart() }
+            className="bg-[#E57905] flex rounded-md items-center w-full h-[46px] justify-center py-3 text-white">
+            <BiIcons.BiShoppingBag color={'#fff'} className="w-[21px] h-[21px] mr-2 " />
             Đặt giao tận nơi
-          </Link>
+          </button>
           <div className="mt-5">
             <div className="mb-3">Chọn size (bắt buộc)</div>
             <div className="flex gap-4">
@@ -94,7 +113,7 @@ const ProductDetail = () => {
                   text={item.name}
                   price={item.value}
                   key={item.id}
-                  onClick={() => setSelectedSize(item.name)}
+                  onClick={() => setSelectedSize(item?.name)}
                   isSelected={item.name === selectedSize}
                   showIcon={true}
                 />
@@ -105,13 +124,13 @@ const ProductDetail = () => {
             <div className="mb-3">Topping</div>
             <div className="flex gap-4 flex-wrap">
               <Option
-                text={productTopping[0].name}
-                price={productTopping[0].value}
-                key={productTopping[0].id}
-                isSelected={productTopping[0].name === machiato}
+                text={productTopping[0]?.name}
+                price={productTopping[0]?.value}
+                key={productTopping[0]?.id}
+                isSelected={productTopping[0]?.name === machiato}
                 onClick={() => {
                   if (machiato === '') {
-                    setMachiato(productTopping[0].name);
+                    setMachiato(productTopping[0]?.name);
                     addToppingList(productTopping[0]);
                   } else {
                     setMachiato('');
@@ -197,5 +216,7 @@ const ProductDetail = () => {
     </div>
   );
 };
+
+
 
 export default ProductDetail;

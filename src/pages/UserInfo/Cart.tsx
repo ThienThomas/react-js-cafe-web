@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getListBank } from '../../api/product';
 import { BiIcons, RiIcons } from '../../assets/icons';
 import Input from '../../component/Common/Input';
+import Message from '../../component/Common/Message';
 import useCartSlice from '../../hooks/useCarSlice';
 import useUserSlice from '../../hooks/useUserSlice';
 import DiscountBox from './DiscountBox';
@@ -21,24 +23,23 @@ const Cart = () => {
   const {
     productList,
     totalPrice,
-    actions: { inCreaseQty, deCreaseQty, delCartItem, setQuantity }
+    actions: { inCreaseQty, deCreaseQty, delCartItem, setQuantity, clearCart }
   } = useCartSlice();
 
   const { user } = useUserSlice();
 
-  const { register } = useForm({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors }
+  } = useForm({
     defaultValues: {
       address: '',
-      note: '',
-      codeCoupon: '',
-      totalPrice: '',
-      status: 'ORDERED',
-      bankcode: '',
-      orderProducts: [
-       
-      ]
+      note: ''
     }
   });
+
 
   const [openDiscount, setOpenDiscount] = useState(false);
 
@@ -47,6 +48,37 @@ const Cart = () => {
       ? totalPrice - Number(discount?.discountAmount)
       : totalPrice - Number(discount?.discountAmount) * totalPrice
     : totalPrice;
+
+  const nav = useNavigate();
+
+  const handlePayment = (data: any) => {
+    if (productList?.length > 0) {
+      const newProductList = productList.map(
+        ({ totalPrice, quantity, productGroup, ...rest }: any) => ({
+          totalPrice,
+          quantity,
+          note: '',
+          size: '',
+          topping: [],
+          product: {
+            ...rest
+          }
+        })
+      );
+      nav('/order', {
+        state: {
+          ...data,
+          totalPrice: finalPrice,
+          orderProducts: newProductList,
+          codeCoupon: discount?.code || ''
+        }
+      });
+    } else alert('Giỏ hàng trống vui lòng thêm sản phẩm vào giỏ hàng');
+  };
+
+  useEffect(() => {
+    setValue("address", user.address);
+  }, [user])
 
   return isLoggedIn ? (
     <div className="flex w-full">
@@ -62,32 +94,7 @@ const Cart = () => {
         </div>
       )}
 
-      <Sidebar>
-        <Menu>
-          <SubMenu label="Hồ Sơ">
-            <MenuItem>
-              <Link className="flex items-center gap-2" to="/profile">
-                <BiIcons.BiUser />
-                Thông tin
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link className="flex items-center gap-2 " to="/change-password">
-                <BiIcons.BiLockAlt />
-                Thay đổi mật khẩu
-              </Link>
-            </MenuItem>
-          </SubMenu>
-          <MenuItem>
-            <Link className="flex items-center gap-2 text-[#FA8A2A]" to="/cart">
-              Giỏ Hàng
-            </Link>
-          </MenuItem>
-        </Menu>
-      </Sidebar>
-
-      <div className="p-[20px_50px] w-full bg-[#efefef]">
-        <p className="text-bold text-xl mb-7">Danh sách đơn hàng</p>
+      <div className=" w-full">
         <div className="flex gap-8">
           <div className="overflow-x-auto relative shadow-md sm:rounded-lg w-9/12">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -135,9 +142,9 @@ const Cart = () => {
                             viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                               d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                              clip-rule="evenodd"></path>
+                              clipRule="evenodd"></path>
                           </svg>
                         </button>
                         <div>
@@ -162,9 +169,9 @@ const Cart = () => {
                             viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                               d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                              clip-rule="evenodd"></path>
+                              clipRule="evenodd"></path>
                           </svg>
                         </button>
                       </div>
@@ -184,9 +191,10 @@ const Cart = () => {
                 ))}
               </tbody>
             </table>
+            <button onClick={() => clearCart()} className="mt-10 ml-10  text-white uppercase p-4 bg-clrOrange/90 focus:bg-clrOrange focus:ring-1 focus:ring-clrOrange hover:bg-clrOrange  rounded-lg">Xóa giỏ Hàng</button>
           </div>
 
-          <div className="grid flex-[1] gap-6 w-3/12">
+          <form onSubmit={handleSubmit(handlePayment)} className="grid flex-[1] gap-6 w-3/12">
             <div className="shadow-lg p-[10px_15px_25px] w-full bg-white rounded-xl border">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-[#808089] text-[17px]">Giao tới</p>
@@ -206,22 +214,27 @@ const Cart = () => {
                 </p>
                 <input
                   id={'change'}
+                  {...register('address', {
+                    required: 'Trường này không được để trống'
+                  })}
                   className="ml-2 text-sm  px-0 w-full   bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-clrOrange focus:outline-none focus:ring-0 focus:border-clrOrange peer text-[#727274]"
                 />
               </div>
+              <Message message={errors?.address?.message} />
             </div>
 
             <div className="shadow-lg p-[10px_15px_25px] w-full bg-white rounded-xl border">
               <div className="flex items-center justify-between mb-6">
                 <div className="font-bold text-sm">Khuyến Mãi</div>
                 <div className="flex items-center gap-1">
-                  <p className="text-[#808089] text-sm ">Có thể chọn 2</p>
+                  <p className="text-[#808089] text-sm ">Chỉ Có thể chọn 1</p>
                   <BiIcons.BiHelpCircle size={20} color={'#808089'} />
                 </div>
               </div>
               <div className="flex items-center">
                 <RiIcons.RiCoupon3Line size={20} color={'#0D74E4'} />
                 <button
+                  type="button"
                   onClick={() => setOpenDiscount((pre) => !pre)}
                   className="text-[#0D74E4] text-sm ml-1">
                   Chọn hoặc nhập mã Khuyến Mãi
@@ -248,16 +261,27 @@ const Cart = () => {
               <div className="justify-between items-center ">
                 <div>Note</div>
                 <div className="mt-2">
-                  <textarea id="message" rows={4}  className="outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    className="outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Write your thoughts here..."></textarea>
                 </div>
-                <p className="text-gray-400 text-sm mt-3">Bạn có thể lưu ghi chú của mình để cho cửa hàng biết bạn cần những yêu cầu nào trong sản pẩm ví dụ: sản phẩm cần ít đường...</p>
+                <p className="text-gray-400 text-sm mt-3">
+                  Bạn có thể lưu ghi chú của mình để cho cửa hàng biết bạn cần những yêu cầu nào
+                  trong sản pẩm ví dụ: sản phẩm cần ít đường...
+                </p>
               </div>
             </div>
 
-            <div className="cursor-pointer text-white bg-[#fa8c16] p-[6px_24px] flex items-center rounded-lg justify-center font-extrabold text-lg">
-              <Link to="/order">Đặt Hàng</Link>
+            <div>
+              <button
+                type="submit"
+                className="cursor-pointer w-full text-white bg-[#fa8c16] p-[6px_24px] flex items-center rounded-lg justify-center font-extrabold text-lg">
+                Đặt Hàng
+              </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

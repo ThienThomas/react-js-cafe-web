@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { uploadAvatar } from '../../api/auth';
+import { updateUser, uploadAvatar } from '../../api/auth';
 import Input from '../../component/Common/Input';
 import Message from '../../component/Common/Message';
 import useUserSlice from '../../hooks/useUserSlice';
@@ -20,7 +20,8 @@ const Info = () => {
       birth: '',
       avatar: '',
       phone: '',
-      gender: ''
+      gender: '',
+      address: ''
     }
   });
 
@@ -32,22 +33,28 @@ const Info = () => {
     });
   }, [user]);
 
-  const registerGender = register('gender', {
-    required: 'Trường này không được để trống'
-  });
+  const { saveUserInformation } = useUserSlice();
 
   const onSubmit = async (data: any) => {
-    const imageBuffer = new FormData();
-    imageBuffer.append('avatar', data.avatar[0]);
+    // const imageBuffer = new FormData();
+    // imageBuffer.append('avatar', data.avatar[0]);
     try {
-      await uploadAvatar(imageBuffer, data?.username);
-      // await updateUser(data)
-    } catch (error) {}
+      // await uploadAvatar(imageBuffer, data?.username);
+      const { password, ...rest } = data;
+      const res = await updateUser({ ...rest, avatar: '' });
+      saveUserInformation(res.data.content);
+      alert('Cập nhật thông tin thành công');
+    } catch (e: any) {
+      alert(`Lỗi: ${e?.response?.data?.errors?.join() || e?.message}`);
+    }
   };
 
   return (
-    <div>
-      <form action="" className="py-10 " onSubmit={handleSubmit((data: any) => onSubmit(data))}>
+    <div className="shadow-xl p-10 shadow-black/20">
+      <form
+        action=""
+        className="py-10  w-full "
+        onSubmit={handleSubmit((data: any) => onSubmit(data))}>
         <Input
           register={{
             ...register('name', {
@@ -58,7 +65,7 @@ const Info = () => {
               }
             })
           }}
-          label="name"
+          label="Họ và Tên"
           errors={errors?.name?.message}
         />
 
@@ -67,12 +74,33 @@ const Info = () => {
             {'gender'}
           </label>
           <div className="flex items-center gap-4">
-            <input value={'FEMALE'} type={'radio'} {...registerGender} placeholder=" " />
-            <label className="">{'Nữ'}</label>
+            <input
+              value={'FEMALE'}
+              id={'FEMALE'}
+              defaultChecked={true}
+              type={'radio'}
+              {...register('gender', {
+                required: 'Trường này không được để trống'
+              })}
+              placeholder=" "
+            />
+            <label htmlFor={'FEMALE'} className="cursor-pointer">
+              {'Nữ'}
+            </label>
           </div>
           <div className="flex items-center gap-4">
-            <input value={'MALE'} type={'radio'} {...registerGender} placeholder=" " />
-            <label className="">{'Nam'}</label>
+            <input
+              value={'MALE'}
+              id={'MALE'}
+              type={'radio'}
+              {...register('gender', {
+                required: 'Trường này không được để trống'
+              })}
+              placeholder=" "
+            />
+            <label htmlFor="MALE" className="cursor-pointer">
+              {'Nam'}
+            </label>
           </div>
           <Message message={errors?.gender?.message} />
         </div>
@@ -96,11 +124,22 @@ const Info = () => {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: 'Định dạng email không chính xác'
               }
+              
             })
           }}
           label="Email"
           errors={errors?.email?.message}
         />
+        <Input
+          register={{
+            ...register('address', {
+              required: 'Trường này không được để trống'
+            })
+          }}
+          label="Địa chỉ"
+          errors={errors?.address?.message}
+        />
+
         <Input
           register={{
             ...register('phone', {
@@ -117,9 +156,7 @@ const Info = () => {
         <Input
           type="file"
           register={{
-            ...register('avatar', {
-              required: 'Trường này không được để trống'
-            })
+            ...register('avatar')
           }}
           label="avatar"
           errors={errors?.avatar?.message}

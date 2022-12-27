@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import { rootSaga } from '../sagas';
 
 import authSlice from './auth.slice';
+import cartSlice from './cart.slice';
 import productSlice from './product.slice';
 import startUpSlice from './start-up.slice';
 import userSlice from './user.slice';
@@ -13,7 +14,8 @@ const reducers = combineReducers({
   auth: authSlice.reducer,
   user: userSlice.reducer,
   product: productSlice.reducer,
-  startup: startUpSlice.reducer
+  startup: startUpSlice.reducer,
+  cart: cartSlice.reducer
 });
 
 const persistConfig = {
@@ -34,5 +36,6 @@ export const actions = {
   auth: authSlice.actions,
   user: userSlice.actions,
   product: productSlice.actions,
-  startup: startUpSlice.actions
+  startup: startUpSlice.actions,
+  cart: cartSlice.actions 
 };

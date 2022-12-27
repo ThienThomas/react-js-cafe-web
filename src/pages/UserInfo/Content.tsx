@@ -7,9 +7,9 @@ const Content = () => {
 
   return (
     <div>
-      <div className=" py-10">
+      <div className="p-[50px_50px] shadow-sm bg-[#efefef] ">
         <div >
-            <h1 className="text-2xl">{heading}</h1>
+            <h1 className="text-2xl mb-10">{heading}</h1>
         </div>
         <Outlet />
       </div>

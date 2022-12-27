@@ -37,17 +37,11 @@ export const AxiosServiceGet = async (url: string, params?: any, authRequired = 
   }
 };
 
-export const AxiosServicePost = async (
+export const AxiosServicePost = (
   url: string,
   data?: any,
   params?: any,
   authRequired = false
-) => {
-  try {
-    return await axios.post(`${getBaseUrl()}${url}`, {
+) => axios.post(`${getBaseUrl()}${url}`, {
       ...data
-    });
-  } catch (e) {
-    console.log(e);
-  }
-};
+    })

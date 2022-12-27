@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import DefaultLayout from './component/Layout/DefaultLayout';
+import ProtectedRouter from './component/ProtectedRouter';
 import { useStartUp } from './hooks/start-up.hook';
 import Coupon from './pages/Coupon/Coupon.page';
 import ProductDetail from './pages/Details/Detail';
@@ -7,11 +8,13 @@ import Forgot from './pages/Forgot/Forgot';
 import { Home } from './pages/Home';
 import { Menu } from './pages/Menu';
 import Order from './pages/Order/Order';
-import Cart from './pages/Profile/Cart';
 import Store from './pages/Store';
+import Cart from './pages/UserInfo/Cart';
 import ChangePass from './pages/UserInfo/ChangePass';
 import Info from './pages/UserInfo/Info';
 import UserInfo from './pages/UserInfo/UserInfo';
+import PaymentProcess from './pages/PaymentProcess';
+import './App.css'
 
 function App() {
   useStartUp();
@@ -44,6 +47,7 @@ function App() {
             }
           />
         </Route>
+
         <Route path="/product">
           <Route
             path=":product"
@@ -54,6 +58,7 @@ function App() {
             }
           />
         </Route>
+
         <Route
           path="/order"
           element={
@@ -81,26 +86,31 @@ function App() {
             <DefaultLayout>
               <Forgot />
             </DefaultLayout>
-          }></Route>
+          }
+        />
+
+        <Route
+          path="/checkout-process"
+          element={
+              <DefaultLayout>
+                <PaymentProcess />
+              </DefaultLayout>
+          }
+        />
 
         <Route
           path="/user-info"
           element={
-            <DefaultLayout>
-              <UserInfo />
-            </DefaultLayout>
+            <ProtectedRouter>
+              <DefaultLayout>
+                <UserInfo />
+              </DefaultLayout>
+            </ProtectedRouter>
           }>
           <Route index element={<Info />} />
           <Route path="change-password" element={<ChangePass />} />
+          <Route path="cart" element={<Cart />} />
         </Route>
-        <Route
-          path="/cart"
-          element={
-            <DefaultLayout>
-              <Cart />
-            </DefaultLayout>
-          }
-        />
       </Routes>
     </BrowserRouter>
   );
