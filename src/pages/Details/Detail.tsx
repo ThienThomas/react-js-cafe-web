@@ -43,7 +43,6 @@ const ProductDetail = () => {
     productList,
     (item: ProductType) => item.productGroup?.id === productData.productGroup?.id
   ).slice(0, 4);
-  console.log(productList, relevants, productData);
   const addToppingList = (item: any) => {
     setSelectedTopping((prevState: any) => [...prevState, item]);
   };
@@ -52,9 +51,6 @@ const ProductDetail = () => {
     toppingList = toppingList.filter((e: any) => e.id !== item.id);
     setSelectedTopping(toppingList);
   };
-  useEffect(() => {
-    console.log(selectedTopping);
-  }, [selectedTopping]);
 
   const dispatch = useDispatch();
 
@@ -65,8 +61,10 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     if (isLoggedIn) {
       dispatch(
-        actions.cart.addToCart({ ...productData, size: selectedSize, topping: selectedTopping })
+        actions.cart.addToCart({ ...productData, size: selectedSize, topping: selectedTopping.map((topping: any) => topping.name) })
       );
+
+      
       nav('/user-info/cart');
     } else setToggleLogin(true);
   };
