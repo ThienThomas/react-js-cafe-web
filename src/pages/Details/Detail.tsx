@@ -63,15 +63,6 @@ const ProductDetail = () => {
   const nav = useNavigate();
 
   const handleAddToCart = () => {
-<<<<<<< HEAD
-    if(isLoggedIn) {
-      dispatch(actions.cart.addToCart({...productData, size: selectedSize,  topping: selectedTopping.map((topping:any) => topping.name)}))
-      nav('/user-info/cart')
-    }else 
-      setToggleLogin(true)
-  }
-
-=======
     if (isLoggedIn) {
       dispatch(
         actions.cart.addToCart({ ...productData, size: selectedSize, topping: selectedTopping })
@@ -80,7 +71,6 @@ const ProductDetail = () => {
       nav('/user-info/cart');
     } else setToggleLogin(true);
   };
->>>>>>> 7cac7a2f2d190087c41a84691a83a812f8cee664
 
   return (
     <div className={styles.container}>
