@@ -28,7 +28,7 @@ const ListStore = () => {
     <>
       <div className="bg-bgStore p-[10px_20px] h-[205px] flex items-center justify-center">
         <p className="text-white text-3xl font-semibold">
-          Hệ thống ? cửa hàng The Coffee House toàn quốc
+          Hệ thống cửa hàng The Coffee House toàn quốc
         </p>
       </div>
       <div className="md:max-w-[1200px] p-[20px_10px] m-auto flex">

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 
-import { find } from 'lodash';
+import { filter, find } from 'lodash';
 import { useEffect, useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiIcons } from '../../assets/icons';
 import { productSize, productTopping } from '../../constant/type';
@@ -39,8 +39,11 @@ const ProductDetail = () => {
     productGroup,
     (item: ProductGroupType) => item.id === productData.productGroup.id
   );
-  const relevants = productList.slice(0, 4);
-
+  const relevants = filter(
+    productList,
+    (item: ProductType) => item.productGroup?.id === productData.productGroup?.id
+  ).slice(0, 4);
+  console.log(productList, relevants, productData);
   const addToppingList = (item: any) => {
     setSelectedTopping((prevState: any) => [...prevState, item]);
   };
@@ -53,21 +56,21 @@ const ProductDetail = () => {
     console.log(selectedTopping);
   }, [selectedTopping]);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const {isLoggedIn, setToggleLogin} = useUserSlice()
-  
-  const nav = useNavigate()
+  const { isLoggedIn, setToggleLogin } = useUserSlice();
+
+  const nav = useNavigate();
 
   const handleAddToCart = () => {
-    if(isLoggedIn) {
-      dispatch(actions.cart.addToCart({...productData, size: selectedSize,  topping: selectedTopping}))
-      console.log(selectedSize, selectedTopping)
-      nav('/user-info/cart')
-    }else 
-      setToggleLogin(true)
-  }
-
+    if (isLoggedIn) {
+      dispatch(
+        actions.cart.addToCart({ ...productData, size: selectedSize, topping: selectedTopping })
+      );
+      console.log(selectedSize, selectedTopping);
+      nav('/user-info/cart');
+    } else setToggleLogin(true);
+  };
 
   return (
     <div className={styles.container}>
@@ -98,9 +101,9 @@ const ProductDetail = () => {
               suffix={' VND'}
             />
           </div>
-          <button 
+          <button
             type="button"
-            onClick={() => handleAddToCart() }
+            onClick={() => handleAddToCart()}
             className="bg-[#E57905] flex rounded-md items-center w-full h-[46px] justify-center py-3 text-white">
             <BiIcons.BiShoppingBag color={'#fff'} className="w-[21px] h-[21px] mr-2 " />
             Đặt giao tận nơi
@@ -225,7 +228,5 @@ const ProductDetail = () => {
     </div>
   );
 };
-
-
 
 export default ProductDetail;
