@@ -37,7 +37,7 @@ const ProductDetail = () => {
   );
   const productGroupId: ProductGroupType = find(
     productGroup,
-    (item: ProductGroupType) => item.id === productData.productGroup.id
+    (item: ProductGroupType) => item?.id === productData?.productGroup?.id
   );
   const relevants = productList.slice(0, 4);
 
@@ -61,8 +61,7 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if(isLoggedIn) {
-      dispatch(actions.cart.addToCart({...productData, size: selectedSize,  topping: selectedTopping}))
-      console.log(selectedSize, selectedTopping)
+      dispatch(actions.cart.addToCart({...productData, size: selectedSize,  topping: selectedTopping.map((topping:any) => topping.name)}))
       nav('/user-info/cart')
     }else 
       setToggleLogin(true)
@@ -105,11 +104,11 @@ const ProductDetail = () => {
             <BiIcons.BiShoppingBag color={'#fff'} className="w-[21px] h-[21px] mr-2 " />
             Đặt giao tận nơi
           </button>
-          {productData?.productGroup.name !== 'Bánh mặn' &&
-            productData?.productGroup.name !== 'Snack' &&
-            productData?.productGroup.name !== 'Thưởng thức tại nhà' &&
-            productData?.productGroup.name !== 'Cà phê tại nhà' &&
-            productData?.productGroup.name !== 'Bánh ngọt' && (
+          {productData?.productGroup?.name !== 'Bánh mặn' &&
+            productData?.productGroup?.name !== 'Snack' &&
+            productData?.productGroup?.name !== 'Thưởng thức tại nhà' &&
+            productData?.productGroup?.name !== 'Cà phê tại nhà' &&
+            productData?.productGroup?.name !== 'Bánh ngọt' && (
               <>
                 <div className="mt-5">
                   <div className="mb-3">Chọn size (bắt buộc)</div>
