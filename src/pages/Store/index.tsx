@@ -95,10 +95,6 @@ const ListStore = () => {
               ))
             )}
           </div>
-
-          <div className="flex items-center justify-center w-[282px] h-[40px] font-semibold border border-solid border-slate-300 rounded-xl cursor-pointer my-8 mx-auto">
-            Xem Thêm
-          </div>
         </div>
       </div>
     </>

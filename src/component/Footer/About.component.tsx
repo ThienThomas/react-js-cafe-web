@@ -12,18 +12,13 @@ const About = () => {
       <h6 className={style.heading}>Giới thiệu</h6>
       <ul className={style.elementContainer}>
         <li>
-          <Link to="/">
+          <a href="https://thecoffeehouse.com/pages/chuyen-ca-phe-va-tra">
             <span className="text-sm">Về chúng tôi</span>
-          </Link>
+          </a>
         </li>
         <li>
-          <Link to="/">
+          <Link to="/menu">
             <span className="text-sm">Sản phẩm</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="text-sm">Khuyến mãi</span>
           </Link>
         </li>
         <li>

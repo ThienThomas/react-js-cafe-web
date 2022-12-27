@@ -24,13 +24,13 @@ const Menu = () => {
     };
   });
   const indicatorIndex = category ?? ProductMenu.ALL;
-  const categoryId = find(productGroup, (item: ProductGroupType) => item.parsedName === category);
+  const categoryId = find(productGroup, (item: ProductGroupType) => item?.parsedName === category);
   console.log(categoryId);
 
   const data =
     indicatorIndex === ProductMenu.ALL
       ? productList
-      : filter(productList, (item: ProductType) => item.productGroup.id === categoryId?.id);
+      : filter(productList, (item: ProductType) => item?.productGroup?.id === categoryId?.id);
 
   return (
     <div className={styles.container}>
