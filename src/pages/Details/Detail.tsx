@@ -67,7 +67,6 @@ const ProductDetail = () => {
       dispatch(
         actions.cart.addToCart({ ...productData, size: selectedSize, topping: selectedTopping })
       );
-      console.log(selectedSize, selectedTopping);
       nav('/user-info/cart');
     } else setToggleLogin(true);
   };

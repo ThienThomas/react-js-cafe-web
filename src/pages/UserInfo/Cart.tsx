@@ -48,7 +48,7 @@ const Cart = () => {
 
   const nav = useNavigate();
 
-    console.log(    productList      )
+    console.log(    discount      )
 
   const handlePayment = (data: any) => {
     if (productList?.length > 0) {
