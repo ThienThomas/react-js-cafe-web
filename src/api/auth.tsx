@@ -41,18 +41,20 @@ export const resetPassword = async (data: any) => {
 };
 
 export const forgotPassword = (data: any, url: string) => {
-  return AxiosServicePost(`${EndpointConfig.auth.FORGOT_PASSWORD}?email=${data?.email}&feHomePage=${url}`, {...data, feHomePage: 'https://spectacular-clafoutis-af79ec.netlify.app/'})
-}
+  return AxiosServicePost(
+    `${EndpointConfig.auth.FORGOT_PASSWORD}?email=${data?.email}&feHomePage=${url}`,
+    { ...data, feHomePage: 'https://spectacular-clafoutis-af79ec.netlify.app/' }
+  );
+};
 
 export const updateUser = (data: any) => {
-  return API.put(EndpointConfig.auth.UPDATE, data)
-}
+  return API.put(EndpointConfig.auth.UPDATE, data);
+};
 
 export const uploadAvatar = (data: any, username: string) => {
-  return axios.post(`${getBaseUrl()}${EndpointConfig.auth.FILE_UPLOAD}?username=${username}`, data)
-}
+  return axios.post(`https://food-express-server.onrender.com/api/upload/single_image`, data);
+};
 
-
-export const changePassword = ( data: any) => {
-  return axios.post(`${getBaseUrl()}${EndpointConfig.auth.CHANGE_PASSWORD}`, data)
-}
+export const changePassword = (data: any) => {
+  return axios.post(`${getBaseUrl()}${EndpointConfig.auth.CHANGE_PASSWORD}`, data);
+};

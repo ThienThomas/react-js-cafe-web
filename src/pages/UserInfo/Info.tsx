@@ -36,12 +36,15 @@ const Info = () => {
   const { saveUserInformation } = useUserSlice();
 
   const onSubmit = async (data: any) => {
-    // const imageBuffer = new FormData();
-    // imageBuffer.append('avatar', data.avatar[0]);
+    const imageBuffer = new FormData();
+    imageBuffer.append('single_image', data.avatar[0]);
     try {
-      // await uploadAvatar(imageBuffer, data?.username);
+      const img = await uploadAvatar(imageBuffer, data?.username);
       const { password, ...rest } = data;
-      const res = await updateUser({ ...rest, avatar: '' });
+      const res = await updateUser({
+        ...rest,
+        avatar: `https://food-express-server.onrender.com/static/${img.data.data}`
+      });
       saveUserInformation(res.data.content);
       alert('Cập nhật thông tin thành công');
     } catch (e: any) {
@@ -124,7 +127,6 @@ const Info = () => {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: 'Định dạng email không chính xác'
               }
-              
             })
           }}
           label="Email"

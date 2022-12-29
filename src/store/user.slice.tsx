@@ -10,8 +10,8 @@ export interface IUser {
   avatar: string;
   phone: string;
   gender: string;
-  name: string,
-  address: string
+  name: string;
+  address: string;
 }
 const initialState: IUser = {
   id: '',
@@ -30,7 +30,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     saveUserInformation(state, payload) {
-      state.name = payload?.payload.name
+      state.name = payload?.payload.name;
       state.id = payload.payload.id;
       state.username = payload.payload.username;
       state.email = payload.payload.email;
@@ -38,8 +38,9 @@ const userSlice = createSlice({
       state.phone = payload.payload.phone;
       state.gender = payload.payload.gender;
       state.address = payload.payload.address;
+      state.avatar = payload.payload.avatar;
     },
-    
+
     deleteUserInfo(state) {
       state.id = '';
       state.username = '';
@@ -48,7 +49,7 @@ const userSlice = createSlice({
       state.avatar = '';
       state.phone = '';
       state.gender = '';
-      state.name = ''
+      state.name = '';
     }
   }
 });
