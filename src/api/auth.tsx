@@ -52,7 +52,7 @@ export const updateUser = (data: any) => {
 };
 
 export const uploadAvatar = (data: any, username: string) => {
-  return axios.post(`https://food-express-server.onrender.com/api/upload/single_image`, data);
+  return axios.post(`https://api.cloudinary.com/v1_1/moviesss/upload`, data);
 };
 
 export const changePassword = (data: any) => {

@@ -37,13 +37,15 @@ const Info = () => {
 
   const onSubmit = async (data: any) => {
     const imageBuffer = new FormData();
-    imageBuffer.append('single_image', data.avatar[0]);
+    imageBuffer.append('file', data.avatar?.[0]);
+    imageBuffer.append('upload_preset', 'iq4brhpx');
     try {
-      const img = await uploadAvatar(imageBuffer, data?.username);
+      let img;
+      if (data?.avatar?.[0]) img = await uploadAvatar(imageBuffer, data?.username);
       const { password, ...rest } = data;
       const res = await updateUser({
         ...rest,
-        avatar: `https://food-express-server.onrender.com/static/${img.data.data}`
+        avatar: img?.data?.secure_url
       });
       saveUserInformation(res.data.content);
       alert('Cập nhật thông tin thành công');
