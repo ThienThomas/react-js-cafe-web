@@ -1,18 +1,16 @@
+import { useEffect } from 'react';
 import { BiIcons } from '../../assets/icons';
 import bank from '../../assets/images/bank.png';
 import shipper from '../../assets/images/img-deliver.png';
-import money from '../../assets/images/realMoney.jpeg';
 import './Order.css';
-import { useEffect } from 'react';
 
 import { useState } from 'react';
-import Modal from './Modal.component';
-import ModalNewProduct from './ModalNewProduct.component';
-import { Link, useLocation, useNavigate, useNavigation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import useUserSlice from '../../hooks/useUserSlice';
-import Message from '../../component/Common/Message';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createOrder } from '../../api/product';
+import Message from '../../component/Common/Message';
+import useCartSlice from '../../hooks/useCarSlice';
+import useUserSlice from '../../hooks/useUserSlice';
 
 const paymentMethods = [
   {
@@ -54,14 +52,17 @@ const Order = () => {
       status: 'ORDERED',
       bankcode: '',
       phoneNumber: '',
-      customerName: ''
+      customerName: '',
+      isAgree: ''
     }
   });
 
   const { user } = useUserSlice();
+  const {
+    actions: { clearCart }
+  } = useCartSlice();
 
   const nav = useNavigate();
-
 
   useEffect(() => {
     if (local?.state) {
@@ -229,11 +230,17 @@ const Order = () => {
             )}
 
             <div className="mt-10">
-              <input type="checkbox" id="rule" name="rule" />
+              <input
+                {...register('isAgree', { required: 'Bạn phải đồng ý với các điều khoản' })}
+                type="checkbox"
+                id="rule"
+                name="rule"
+              />
               <label htmlFor="rule" className="ml-3">
                 Đồng ý với các <span className="text-[#fa8c16]">điều khoản và điều kiện</span> mua
                 hàng của The Coffee House
               </label>
+              <div className="text-red-500 mt-2">{errors?.isAgree?.message}</div>
             </div>
           </div>
           <div className="w-6/12">
@@ -326,9 +333,12 @@ const Order = () => {
             </div>
 
             <div
-              onClick={() =>
-                confirm('Bạn có chắc chắn muốn xóa đơn hàng ?') ? nav('/', { replace: true }) : null
-              }
+              onClick={() => {
+                if (confirm('Bạn có chắc chắn muốn xóa đơn hàng ?')) {
+                  clearCart();
+                  nav('/', { replace: true });
+                }
+              }}
               className="text-[#fa8c16] flex items-end justify-center mt-5 cursor-pointer">
               <BiIcons.BiRecycle color={'#fa8c16'} size={30} />
               Xoá đơn hàng
