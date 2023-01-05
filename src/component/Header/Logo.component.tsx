@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 // Styling:
 const styles = {
-  paragraph: 'font-bold text-clrBlack text-mds justify-self-center my-auto'
+  paragraph: 'font-bold text-clrBlack text-base justify-self-center my-auto'
 };
 
 // Component:

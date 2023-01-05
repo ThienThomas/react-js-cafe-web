@@ -36,9 +36,9 @@ const data = [
 const Sidebar = () => {
   const [selectFeature, setSelectFeature] = useState<any[]>([]);
 
-  const local = useLocation()
+  const local = useLocation();
 
-  const currentRoute = local.pathname.split("/")[local.pathname.split("/").length - 1]
+  const currentRoute = local.pathname.split('/')[local.pathname.split('/').length - 1];
 
   const handleSelectFeature = (index: any) => {
     const isExiting = selectFeature.some((_, i) => i === index);
@@ -67,7 +67,16 @@ const Sidebar = () => {
                   )}
                 </div>
               ) : (
-                <NavLink state={item?.state} className={({isActive}) => `flex items-center  px-10   justify-between text-xl py-4  ${isActive ? 'text-clrOrange' : ''}`} to={item?.path}>{item?.label}</NavLink>
+                <NavLink
+                  state={item?.state}
+                  className={({ isActive }) =>
+                    `flex items-center  px-10   justify-between text-xl py-4  ${
+                      isActive ? 'text-clrOrange' : ''
+                    }`
+                  }
+                  to={item?.path}>
+                  {item?.label}
+                </NavLink>
               )}
 
               {isHasFeature && selectFeature.includes(i) && (
@@ -77,7 +86,9 @@ const Sidebar = () => {
                       state={feature.state}
                       to={feature.path}
                       className={({ isActive }) =>
-                        `flex items-center px-4 py-4 gap-2 ${currentRoute === feature.path.replace("/",'') ? 'text-clrOrange' : ''}`
+                        `flex items-center px-4 py-4 gap-2 ${
+                          currentRoute === feature.path.replace('/', '') ? 'text-clrOrange' : ''
+                        }`
                       }
                       key={j}>
                       <span className="">{feature.icon}</span>

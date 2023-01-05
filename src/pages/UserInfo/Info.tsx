@@ -55,7 +55,7 @@ const Info = () => {
   };
 
   return (
-    <div className="shadow-xl p-10 shadow-black/20">
+    <div className="shadow-xl rounded-md p-10 shadow-black/20">
       <form
         action=""
         className="py-10  w-full "
