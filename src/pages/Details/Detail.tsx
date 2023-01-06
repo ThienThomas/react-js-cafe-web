@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import { filter, find } from 'lodash';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiIcons } from '../../assets/icons';
@@ -61,11 +61,14 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     if (isLoggedIn) {
       dispatch(
-        actions.cart.addToCart({ ...productData, size: selectedSize, topping: selectedTopping.map((topping: any) => topping.name) })
+        actions.cart.addToCart({
+          ...productData,
+          size: selectedSize,
+          topping: selectedTopping.map((topping: any) => topping.name)
+        })
       );
 
-      
-      nav('/user-info/cart');
+      nav('/user-info/cart', { state: 'Giỏ Hàng' });
     } else setToggleLogin(true);
   };
 
