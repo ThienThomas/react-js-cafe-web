@@ -21,14 +21,16 @@ const Cart = () => {
     setBottomAccountOptionVisible(true);
   };
 
-  const { isLoggedIn, user, toggleLogin, setToggleLogin} = useUserSlice()
-
-
+  const { isLoggedIn, user, toggleLogin, setToggleLogin } = useUserSlice();
 
   return (
     <>
       <div className={style.container}>
-        <Link onClick={() => setToggleLogin(true)} className={style.iconWrapper} to="/user-info/cart">
+        <Link
+          onClick={() => setToggleLogin(true)}
+          className={style.iconWrapper}
+          state={'Giỏ Hàng'}
+          to="/user-info/cart">
           <FeatherIcons.FiShoppingBag color={'#FC8621'} size={25} />
         </Link>
         <Button
@@ -48,9 +50,7 @@ const Cart = () => {
           setLoginFormVisible={setToggleLogin}
         />
       </div>
-      {!isLoggedIn && (
-        <LoginForm visible={toggleLogin} onClose={() => setToggleLogin(false)} />
-      )}
+      {!isLoggedIn && <LoginForm visible={toggleLogin} onClose={() => setToggleLogin(false)} />}
     </>
   );
 };
